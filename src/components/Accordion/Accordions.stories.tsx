@@ -6,7 +6,7 @@ import { BaseStyles } from "../BaseStyles";
 import { Accordions } from "./Accordions";
 
 export default {
-  title: "ACCORDIONS/Accordion",
+  title: "ACCORDIONS/Open one Acordion",
   component: Accordions,
   argTypes: hideArgs,
 } as ComponentMeta<typeof Accordions>;

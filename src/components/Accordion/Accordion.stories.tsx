@@ -5,7 +5,7 @@ import { hideArgs } from "../../stories/hideArgTypes";
 import { BaseStyles } from "../BaseStyles";
 
 export default {
-  title: "ACCORDIONS/Accordions",
+  title: "ACCORDIONS/Open multiple Accordions",
   component: Accordion,
   argTypes: hideArgs,
 } as ComponentMeta<typeof Accordion>;

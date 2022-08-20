@@ -1,13 +1,29 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useToast } from '../context/ToastContext';
-import { IToast } from '../interface/IToast';
-import { ToastCardContainer } from './styles';
-import { FiCheckCircle, FiInfo, FiAlertTriangle, FiXOctagon } from 'react-icons/fi';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+import { useToast } from "../context/ToastContext";
+import { IToast } from "../interface/IToast";
+import { ToastCardContainer } from "./styles";
+import {
+  FiCheckCircle,
+  FiInfo,
+  FiAlertTriangle,
+  FiXOctagon,
+} from "react-icons/fi";
 
 // toast comes from the right and leaves to top
 // toast in the center of the page
 
-const ToastCard: React.FC<IToast> = ({ duration = 5000, position = 'top-right', handleOnClick, ...props }) => {
+const ToastCard: React.FC<IToast> = ({
+  duration = 5000,
+  position = "top-right",
+  handleOnClick,
+  ...props
+}) => {
   const { toastListCurrent } = useToast();
   const [shouldShow, setShouldShow] = useState<boolean>(false);
   const timeToUnmount = 700; //700ms
@@ -24,10 +40,10 @@ const ToastCard: React.FC<IToast> = ({ duration = 5000, position = 'top-right', 
   }, [handleOnClick, props.id]);
 
   const toastIcon = useMemo(() => {
-    if (props.status === 'success') return <FiCheckCircle />;
-    if (props.status === 'warning') return <FiAlertTriangle />;
-    if (props.status === 'info') return <FiInfo />;
-    if (props.status === 'danger') return <FiXOctagon />;
+    if (props.status === "success") return <FiCheckCircle />;
+    if (props.status === "warning") return <FiAlertTriangle />;
+    if (props.status === "info") return <FiInfo />;
+    if (props.status === "danger") return <FiXOctagon />;
     return;
   }, [props.status]);
 
@@ -57,7 +73,9 @@ const ToastCard: React.FC<IToast> = ({ duration = 5000, position = 'top-right', 
   }, [removeToastFromScreen]);
 
   useEffect(() => {
-    const myIndex = toastListCurrent.findIndex((toast) => toast.id === props.id);
+    const myIndex = toastListCurrent.findIndex(
+      (toast) => toast.id === props.id
+    );
     setMyIndexInArray(myIndex);
   }, [props.id, toastListCurrent]);
 
@@ -77,16 +95,16 @@ const ToastCard: React.FC<IToast> = ({ duration = 5000, position = 'top-right', 
       myIndexInArray={myIndexInArray}
       position={position}
       duration={duration}
-      className={`toast-card ${props.className ? props.className : ''}`}
+      className={`toast-card ${props.className ? props.className : ""}`}
       onClick={handleOnClickToastCard}
       shouldShow={shouldShow}
       timeToUnmount={timeToUnmount}
     >
+      <div className="toast-icon">{toastIcon}</div>
       <div className="toast-text-info">
         <div className="toast-title">{props.title}</div>
         <div className="toast-subtitle">{props.subtitle}</div>
       </div>
-      <div className="toast-icon">{toastIcon}</div>
     </ToastCardContainer>
   );
 };

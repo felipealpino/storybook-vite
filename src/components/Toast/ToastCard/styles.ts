@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import { colorGet } from '../../../shared/utils';
-import { IToast } from '../interface/IToast';
+import styled from "styled-components";
+import { colorGet } from "../../../shared/utils";
+import { IToast } from "../interface/IToast";
 
 type IToastContainer = IToast & {
   shouldShow: boolean;
@@ -14,11 +14,11 @@ export const ToastCardContainer = styled.div<IToastContainer>`
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 25px;
   padding: 0.1rem 1rem;
-  height: 80px;
+  height: 70px;
   max-width: 400px;
-  min-width: 296px;
+  min-width: 295px;
   cursor: pointer;
   background: ${({ status }) => colorGet(status, 500)};
   border-radius: 4px;
@@ -26,40 +26,40 @@ export const ToastCardContainer = styled.div<IToastContainer>`
   box-shadow: 0 0 10px #999;
 
   ${({ position, shouldShow, myIndexInArray, timeToUnmount }) =>
-    position === 'top-right' &&
+    position === "top-right" &&
     ` 
     top: ${myIndexInArray * 100 + 10}px;
     right: 12px;
     transition: transform ${timeToUnmount}ms ease-in-out;
-    transform: translateX(${shouldShow ? '0' : '200%'});
+    transform: translateX(${shouldShow ? "0" : "200%"});
   `}
 
   ${({ position, shouldShow, myIndexInArray, timeToUnmount }) =>
-    position === 'bottom-right' &&
+    position === "bottom-right" &&
     ` 
     bottom: ${myIndexInArray * 100 + 10}px;
     right: 12px;
     transition: transform ${timeToUnmount}ms ease-in-out;
-    transform: translateX(${shouldShow ? '0' : '200%'});
+    transform: translateX(${shouldShow ? "0" : "200%"});
   `}
 
 
 ${({ position, shouldShow, myIndexInArray, timeToUnmount }) =>
-    position === 'top-left' &&
+    position === "top-left" &&
     ` 
     top: ${myIndexInArray * 100 + 10}px;
     left: 12px;
     transition: transform ${timeToUnmount}ms ease-in-out;
-    transform: translateX(${shouldShow ? '0' : '-200%'});
+    transform: translateX(${shouldShow ? "0" : "-200%"});
   `}
 
 ${({ position, shouldShow, myIndexInArray, timeToUnmount }) =>
-    position === 'bottom-left' &&
+    position === "bottom-left" &&
     ` 
     bottom: ${myIndexInArray * 100 + 10}px;
     left: 12px;
     transition: transform ${timeToUnmount}ms ease-in-out;
-    transform: translateX(${shouldShow ? '0' : '-200%'});
+    transform: translateX(${shouldShow ? "0" : "-200%"});
   `}
 
   .toast-icon {
@@ -76,7 +76,7 @@ ${({ position, shouldShow, myIndexInArray, timeToUnmount }) =>
     max-width: 300px;
 
     .toast-title {
-      font-size: 18px;
+      font-size: 16px;
       font-weight: bold;
 
       white-space: nowrap;
