@@ -69,4 +69,9 @@ export const hideArgs = {
       disable: true,
     },
   },
+  textAreaRef: {
+    table: {
+      disable: true,
+    },
+  },
 };
