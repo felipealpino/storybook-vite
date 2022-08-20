@@ -12,6 +12,4 @@ const Template: ComponentStory<typeof Button> = (args) => (
 );
 
 export const Primary = Template.bind({});
-Primary.args = {
-  disabled: false,
-};
+Primary.args = {};
