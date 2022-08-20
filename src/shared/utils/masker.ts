@@ -1,9 +1,9 @@
 export function masker(val: string, mask: string): string {
   let k = 0;
-  let maskared = '';
+  let maskared = "";
 
   for (let i = 0; i <= mask.length - 1; ++i) {
-    if (mask[i] == '#') {
+    if (mask[i] == "#") {
       if (val[k]) {
         maskared += val[k++];
       }
