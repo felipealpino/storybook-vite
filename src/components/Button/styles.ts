@@ -1,6 +1,6 @@
-import { colorGet } from '../../shared/utils/colorGet';
-import styled from 'styled-components';
-import { IButton } from '.';
+import { colorGet } from "../../shared/utils/colorGet";
+import styled from "styled-components";
+import { IButton } from ".";
 
 export const ButtonContainer = styled.button<IButton>`
   all: none;
@@ -22,10 +22,13 @@ export const ButtonContainer = styled.button<IButton>`
   min-height: 50px;
   user-select: none;
 
-  background: ${({ status, outline }) => (outline ? colorGet(status, 300) : colorGet(status, 500))};
-  cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
+  background: ${({ status, outline }) =>
+    outline ? colorGet(status, 300) : colorGet(status, 500)};
+  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
+  
   border: 2px solid ${({ status }) => colorGet(status, 500)};
-  opacity: ${({ disabled }) => (!disabled ? '1' : '0.5')};
+
+  opacity: ${({ disabled }) => (!disabled ? "1" : "0.5")};
 
   &:hover {
     background: ${({ status, disabled }) => !disabled && colorGet(status, 600)};
