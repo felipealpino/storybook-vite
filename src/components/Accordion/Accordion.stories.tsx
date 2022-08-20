@@ -1,13 +1,10 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { Fragment } from "react";
 import { Accordion } from ".";
-import { BaseStyles } from "../BaseStyles";
 import { Accordions } from "./Accordions";
 
 export default {
   title: "ACCORDIONS/Accordions",
-  component: Accordion,
-  argTypes: {},
 } as ComponentMeta<typeof Accordion>;
 
 const Template: ComponentStory<typeof Accordion> = (args) => (
@@ -30,6 +27,13 @@ const Template: ComponentStory<typeof Accordion> = (args) => (
   </Fragment>
 );
 
+export const MultipleOpen = Template.bind({});
+MultipleOpen.args = {
+  disabled: false,
+  status: "primary",
+  title: "This is an accordion",
+};
+
 const Template2: ComponentStory<typeof Accordions> = (args) => (
   <Accordions gap={args.gap}>
     <Accordion title="Accordion 1" status="primary">
@@ -44,14 +48,7 @@ const Template2: ComponentStory<typeof Accordions> = (args) => (
   </Accordions>
 );
 
-export const MultipleOpen = Template.bind({});
-MultipleOpen.args = {
-  disabled: false,
-  status: "primary",
-  title: "This is an accordion",
-};
-
 export const OneOpen = Template2.bind({});
 OneOpen.args = {
-  gap: "0px",
+  gap: 0,
 };

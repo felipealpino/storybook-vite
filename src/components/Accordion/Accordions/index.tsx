@@ -1,13 +1,13 @@
-import React, { useMemo, useState, useCallback } from 'react';
+import React, { useMemo, useState, useCallback } from "react";
 
-import { AccordionsContainer } from '../../../components/Accordion/Accordions/styles';
+import { AccordionsContainer } from "../../../components/Accordion/Accordions/styles";
 
 export interface IAccordions {
-  gap?: string;
+  gap?: number;
   children?: React.ReactNode;
 }
 
-const Accordions: React.FC<IAccordions> = ({ gap = '0px', ...props }) => {
+const Accordions: React.FC<IAccordions> = ({ gap = 0, children }) => {
   const [accordionCurent, setAccrodionCurrent] = useState<number>(0);
 
   const handleSetCurrent = useCallback((index: number) => {
@@ -15,7 +15,7 @@ const Accordions: React.FC<IAccordions> = ({ gap = '0px', ...props }) => {
   }, []);
 
   const getChildren = useMemo(() => {
-    const accordions = props.children as Array<any>;
+    const accordions = children as Array<any>;
     let newAccordions: Array<any>;
 
     if (accordions.length <= 1) {
@@ -36,10 +36,10 @@ const Accordions: React.FC<IAccordions> = ({ gap = '0px', ...props }) => {
     });
 
     return newAccordions;
-  }, [accordionCurent, handleSetCurrent, props.children]);
+  }, [accordionCurent, handleSetCurrent, children]);
 
   return (
-    <AccordionsContainer {...props} gap={gap} className="accordions-list">
+    <AccordionsContainer gap={gap} className="accordions-list">
       {getChildren}
     </AccordionsContainer>
   );
