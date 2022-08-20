@@ -31,6 +31,6 @@ jobs:
         uses: lbertenasco/s3-deploy@v1
         with:
           folder: storybook-static
-          bucket: ${{ secrets.S3_BUCKET }}
+          bucket: sa-east-1
           dist-id: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
           invalidation: / *
