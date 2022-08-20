@@ -24,4 +24,5 @@ Primary.args = {
   label: "This is a Input",
   error: "",
   status: "primary",
+  required: true,
 };

@@ -25,4 +25,5 @@ Primary.args = {
   label: "This is a Checkbox",
   error: "",
   status: "primary",
+  required: true,
 };
