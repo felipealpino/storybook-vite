@@ -20,6 +20,7 @@ export const InputContainer = styled.div<IInputProps>`
     }
 
     input {
+      width: 100%;
       height: 40px;
       outline: none;
       font-size: 15px;
