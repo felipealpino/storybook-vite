@@ -2,7 +2,7 @@ export const hideArgs = {
   icon: {
     table: {
       disable: true,
-    }, 
+    },
   },
   iconfill: {
     table: {
