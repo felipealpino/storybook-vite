@@ -1,5 +1,7 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { Fragment } from "react";
 import { Uploader } from ".";
+import { BaseStyles } from "../BaseStyles";
 
 export default {
   title: "UPLOADER/Uploader",
@@ -8,7 +10,10 @@ export default {
 } as ComponentMeta<typeof Uploader>;
 
 const Template: ComponentStory<typeof Uploader> = (args) => (
-  <Uploader {...args} />
+  <Fragment>
+    <BaseStyles />
+    <Uploader {...args} />
+  </Fragment>
 );
 
 export const Primary = Template.bind({});

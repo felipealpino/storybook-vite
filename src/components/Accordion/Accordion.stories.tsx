@@ -1,6 +1,7 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { Fragment } from "react";
 import { Accordion } from ".";
+import { BaseStyles } from "../BaseStyles";
 import { Accordions } from "./Accordions";
 
 export default {
@@ -9,6 +10,7 @@ export default {
 
 const Template: ComponentStory<typeof Accordion> = (args) => (
   <Fragment>
+    <BaseStyles />
     <Accordion {...args}>
       <div>alou</div>
       <div>alou</div>
