@@ -59,4 +59,14 @@ export const hideArgs = {
       disable: true,
     },
   },
+  handleOnChange: {
+    table: {
+      disable: true,
+    },
+  },
+  initialOption: {
+    table: {
+      disable: true,
+    },
+  },
 };
