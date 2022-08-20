@@ -49,4 +49,9 @@ export const hideArgs = {
       disable: true,
     },
   },
+  callbackGetListData: {
+    table: {
+      disable: true,
+    },
+  },
 };
