@@ -1,11 +1,13 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { Fragment } from "react";
 import { Avatar } from ".";
+import { hideArgs } from "../../stories/hideArgTypes";
 import { BaseStyles } from "../BaseStyles";
 
 export default {
   title: "AVATAR/Avatar",
   component: Avatar,
+  argTypes: hideArgs,
 } as ComponentMeta<typeof Avatar>;
 
 const Template: ComponentStory<typeof Avatar> = (args) => (

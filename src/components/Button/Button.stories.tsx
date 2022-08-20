@@ -1,12 +1,13 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { Fragment } from "react";
 import { Button } from ".";
+import { hideArgs } from "../../stories/hideArgTypes";
 import { BaseStyles } from "../BaseStyles";
 
 export default {
   title: "BUTTON/Button",
   component: Button,
-  argTypes: {},
+  argTypes: hideArgs,
 } as ComponentMeta<typeof Button>;
 
 const Template: ComponentStory<typeof Button> = (args) => (
@@ -17,4 +18,6 @@ const Template: ComponentStory<typeof Button> = (args) => (
 );
 
 export const Primary = Template.bind({});
-Primary.args = {};
+Primary.args = {
+  disabled: false,
+};

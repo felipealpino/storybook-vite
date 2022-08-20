@@ -1,12 +1,13 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { Fragment } from "react";
 import { Uploader } from ".";
+import { hideArgs } from "../../stories/hideArgTypes";
 import { BaseStyles } from "../BaseStyles";
 
 export default {
   title: "UPLOADER/Uploader",
   component: Uploader,
-  argTypes: {},
+  argTypes: hideArgs,
 } as ComponentMeta<typeof Uploader>;
 
 const Template: ComponentStory<typeof Uploader> = (args) => (

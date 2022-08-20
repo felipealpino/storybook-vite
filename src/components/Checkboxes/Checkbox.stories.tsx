@@ -3,9 +3,12 @@ import { Checkbox } from "./Checkbox";
 import { FiTrash2 } from "react-icons/fi";
 import { BaseStyles } from "../BaseStyles";
 import { Fragment } from "react";
+import { hideArgs } from "../../stories/hideArgTypes";
 
 export default {
   title: "CHECKBOXes/Checkbox",
+  component: Checkbox,
+  argTypes: hideArgs,
 } as ComponentMeta<typeof Checkbox>;
 
 const Template: ComponentStory<typeof Checkbox> = (args) => (
@@ -21,4 +24,5 @@ Primary.args = {
   disabled: false,
   label: "This is a Checkbox",
   error: "",
+  status: "primary",
 };
