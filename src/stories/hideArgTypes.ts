@@ -54,4 +54,9 @@ export const hideArgs = {
       disable: true,
     },
   },
+  handleOnCheck: {
+    table: {
+      disable: true,
+    },
+  },
 };
