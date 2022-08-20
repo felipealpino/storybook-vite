@@ -74,4 +74,9 @@ export const hideArgs = {
       disable: true,
     },
   },
+  handleOnChangeTab: {
+    table: {
+      disable: true,
+    },
+  },
 };
