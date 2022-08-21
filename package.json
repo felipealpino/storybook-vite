@@ -12,10 +12,11 @@
   "engines": {
     "node": ">=10"
   },
-
   "scripts": {
-    "build": "microbundle-crl --no-compress --format modern,cjs",
-    "mv": "mv -v dist/src/* dist/",
+    "rmdist": "rm -rf dist",
+    "build": "yarn rmdist && microbundle-crl --no-compress --format modern,cjs && yarn mv",
+    "mv": "mv -f -v dist/src/* dist/ && yarn rmsrc",
+    "rmsrc": "rm -rf dist/src/",
     "storybook": "start-storybook -p 6006",
     "predeploy": "npm run build-storybook",
     "deploy-storybook": "gh-pages -d storybook-static",
@@ -24,9 +25,7 @@
   "dependencies": {
     "react-icons": "^4.4.0",
     "styled-components": "^5.3.5",
-    "uuid": "^8.3.2"
-  },
-  "peerDependencies": {
+    "uuid": "^8.3.2",
     "react": "^18.2.0"
   },
   "files": [
