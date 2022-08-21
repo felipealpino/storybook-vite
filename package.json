@@ -3,13 +3,17 @@
   "description": "React Components",
   "license": "MIT",
   "main": "dist/index.js",
-  "module": "dist/src/index.js",
-  "source": "src/index.tsx",
+  "module": "./dist/src/index.js",
+  "source": "./src/index.tsx",
   "name": "storybook-vite",
   "private": true,
   "type": "module",
   "engines": {
     "node": ">=10"
+  },
+  "exports": {
+    "import": "./dist/src/index.js",
+    "require": "./dist/src/index.js"
   },
   "scripts": {
     "build": "tsc -p .",
