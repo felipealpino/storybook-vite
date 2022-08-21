@@ -1,7 +1,15 @@
 {
+  "version": "1.0.2",
+  "description": "React Components",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/index.modern.js",
+  "source": "src/index.tsx",
+  "engines": {
+    "node": ">=10"
+  },
   "name": "storybook-vite",
   "private": true,
-  "version": "0.0.0",
   "type": "module",
   "scripts": {
     "build": "tsc -p .",
@@ -17,6 +25,9 @@
   "peerDependencies": {
     "react": "^18.2.0"
   },
+  "files": [
+    "dist"
+  ],
   "devDependencies": {
     "react-dom": "^18.2.0",
     "@babel/core": "^7.18.10",
