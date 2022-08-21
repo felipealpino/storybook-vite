@@ -3,14 +3,14 @@
   "description": "React Components",
   "license": "MIT",
   "main": "dist/index.js",
-  "module": "dist/index.modern.js",
+  "module": "dist/src/index.js",
   "source": "src/index.tsx",
-  "engines": {
-    "node": ">=10"
-  },
   "name": "storybook-vite",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=10"
+  },
   "scripts": {
     "build": "tsc -p .",
     "storybook": "start-storybook -p 6006",
