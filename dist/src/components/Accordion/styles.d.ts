@@ -1,4 +1,6 @@
 import { IAccordion } from '../../components/Accordion';
-export declare const AccordionContainer: import("styled-components").StyledComponent<"div", any, IAccordion & {
+declare type IAccordionProps = IAccordion & {
     isOpen: boolean;
-}, never>;
+};
+export declare const AccordionContainer: import("styled-components").StyledComponent<"div", any, IAccordionProps, never>;
+export {};

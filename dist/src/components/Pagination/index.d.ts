@@ -6,7 +6,7 @@ export interface IPagination {
     status?: ElementStatus;
     rounded?: boolean;
     className?: string;
-    callbackGetListData: (page: number) => Promise<void>;
+    paginationCallback: (page: number) => Promise<void>;
 }
 declare const Pagination: React.FC<IPagination>;
 export { Pagination };

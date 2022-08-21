@@ -1,1 +1,1 @@
-export declare const ContainerTextArea: import("styled-components").StyledComponent<"div", any, Pick<import("../interfaces/TextAreaDefaultProps").TextAreaDefaultProps, "disabled" | "status" | "resizable">, never>;
+export declare const ContainerTextArea: import("styled-components").StyledComponent<"div", any, Pick<import("../interfaces/TextAreaDefaultProps").TextAreaDefaultProps, "status" | "disabled" | "resizable">, never>;

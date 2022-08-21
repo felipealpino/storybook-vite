@@ -1,4 +1,6 @@
 import { ISwipeToggle } from "../../components/SwipeToggle";
-export declare const SwipeToggleContainer: import("styled-components").StyledComponent<"label", any, ISwipeToggle & {
+declare type ISwipeToggleProps = ISwipeToggle & {
     statusCheck: boolean;
-}, never>;
+};
+export declare const SwipeToggleContainer: import("styled-components").StyledComponent<"label", any, ISwipeToggleProps, never>;
+export {};

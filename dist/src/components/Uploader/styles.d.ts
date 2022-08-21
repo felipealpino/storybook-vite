@@ -1,6 +1,6 @@
 import { IUploader } from ".";
 export declare const ContainerUploader: import("styled-components").StyledComponent<"div", any, {}, never>;
-export declare const FileUploaderContainer: import("styled-components").StyledComponent<"div", any, Pick<IUploader, "height" | "width">, never>;
+export declare const FileUploaderContainer: import("styled-components").StyledComponent<"div", any, Pick<IUploader, "width" | "height">, never>;
 declare type ILabelFileUpload = {
     isDragActive: boolean;
     backgroundColor: string;

@@ -1,4 +1,6 @@
 import { ITooltip } from '../../components/Tooltip';
-export declare const TooltipContainer: import("styled-components").StyledComponent<"div", any, ITooltip & {
+declare type ITooltipProps = ITooltip & {
     show: boolean;
-}, never>;
+};
+export declare const TooltipContainer: import("styled-components").StyledComponent<"div", any, ITooltipProps, never>;
+export {};
