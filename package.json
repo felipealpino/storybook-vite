@@ -15,6 +15,7 @@
 
   "scripts": {
     "build": "microbundle-crl --no-compress --format modern,cjs",
+    "mv": "mv -v dist/src/* dist/",
     "storybook": "start-storybook -p 6006",
     "predeploy": "npm run build-storybook",
     "deploy-storybook": "gh-pages -d storybook-static",
