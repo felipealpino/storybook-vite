@@ -1,7 +1,5 @@
 import React, { useRef, useState, useEffect, useCallback } from "react";
 
-import { IconBaseProps } from "react-icons";
-
 import { ElementStatus } from "../../shared/theme/colors";
 
 import { SwipeToggleContainer } from "./styles";
