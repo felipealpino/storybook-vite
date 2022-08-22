@@ -24,6 +24,11 @@ export const hideArgs = {
       disable: true,
     },
   },
+  paginationCallback: {
+    table: {
+      disable: true,
+    },
+  },
   handleSetCurrent: {
     table: {
       disable: true,
