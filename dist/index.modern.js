@@ -553,18 +553,111 @@ var Input = function Input(_ref) {
   }));
 };
 
-var _templateObject$9, _templateObject2;
-var PaginationContainer = styled__default.div(_templateObject$9 || (_templateObject$9 = _taggedTemplateLiteralLoose(["\n  display: flex;\n  align-items: center;\n  justify-content: space-around;\n"])));
-var BallContainer = styled__default.div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteralLoose(["\n  border: 1px solid black;\n  width: 2rem;\n  height: 2rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: 1rem;\n"])));
+var _templateObject$9, _templateObject2, _templateObject3;
+var PaginationContainer = styled__default.div(_templateObject$9 || (_templateObject$9 = _taggedTemplateLiteralLoose(["\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  gap: 0.5rem;\n"])));
+var BallContainer = styled__default.div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteralLoose(["\n  cursor: pointer;\n  border: 1px solid black;\n  width: 2rem;\n  height: 2rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: 1rem;\n\n  ", "\n\n  transition: filter 0.3s;\n\n  &:hover {\n    border: 2px solid black;\n    filter: brightness(0.5);\n  }\n"])), function (_ref) {
+  var isCurrentPage = _ref.isCurrentPage;
+  return isCurrentPage && css$1(_templateObject3 || (_templateObject3 = _taggedTemplateLiteralLoose(["\n      background-color: blue;\n      color: white;\n    "])));
+});
 
-var _excluded$5 = ["rounded", "paginationCallback"];
+var _excluded$5 = ["rounded", "paginationCallback", "totalOfPages", "currentPage"];
 
 var Pagination = function Pagination(_ref) {
-  var props = _objectWithoutPropertiesLoose(_ref, _excluded$5);
+  var _ref$totalOfPages = _ref.totalOfPages,
+      totalOfPages = _ref$totalOfPages === void 0 ? 15 : _ref$totalOfPages,
+      _ref$currentPage = _ref.currentPage,
+      currentPage = _ref$currentPage === void 0 ? 0 : _ref$currentPage,
+      props = _objectWithoutPropertiesLoose(_ref, _excluded$5);
 
+  var _useState = useState(),
+      showDots = _useState[0],
+      setShotDots = _useState[1];
+
+  var renderPagesWithDots = useMemo(function () {
+    var toRender = [];
+
+    if (showDots === "end") {
+      for (var i = 1; i <= 5; i++) {
+        toRender.push(React.createElement(BallContainer, {
+          isCurrentPage: i === currentPage,
+          key: i
+        }, i));
+      }
+
+      toRender.push(React.createElement("span", null, "..."));
+      toRender.push(React.createElement(BallContainer, {
+        isCurrentPage: totalOfPages === currentPage,
+        key: totalOfPages
+      }, totalOfPages));
+    }
+
+    if (showDots === "start") {
+      toRender.push(React.createElement(BallContainer, {
+        isCurrentPage: 1 === currentPage,
+        key: 1
+      }, 1));
+      toRender.push(React.createElement("span", null, "..."));
+
+      for (var _i = totalOfPages - 3; _i <= totalOfPages; _i++) {
+        toRender.push(React.createElement(BallContainer, {
+          isCurrentPage: _i === currentPage,
+          key: _i
+        }, _i));
+      }
+    }
+
+    if (showDots === "both") {
+      toRender.push(React.createElement(BallContainer, {
+        isCurrentPage: 1 === currentPage,
+        key: 1
+      }, 1));
+      toRender.push(React.createElement("span", null, "..."));
+
+      for (var _i2 = currentPage - 1; _i2 <= currentPage + 1; _i2++) {
+        toRender.push(React.createElement(BallContainer, {
+          isCurrentPage: _i2 === currentPage,
+          key: _i2
+        }, _i2));
+      }
+
+      toRender.push(React.createElement("span", null, "..."));
+      toRender.push(React.createElement(BallContainer, {
+        isCurrentPage: totalOfPages === currentPage,
+        key: totalOfPages
+      }, totalOfPages));
+    }
+
+    return toRender;
+  }, [currentPage, totalOfPages, showDots]);
+  var renderPagesWithoutDots = useMemo(function () {
+    var toRender = [];
+
+    for (var i = 1; i <= totalOfPages; i++) {
+      toRender.push(React.createElement(BallContainer, {
+        isCurrentPage: i === currentPage,
+        key: i
+      }, i));
+    }
+
+    return toRender;
+  }, [currentPage, totalOfPages, showDots]);
+  useEffect(function () {
+    if (totalOfPages > 7) {
+      if (currentPage > 4 && currentPage < totalOfPages - 3) {
+        setShotDots("both");
+      } else if (currentPage > 4) {
+        setShotDots("start");
+      } else if (currentPage < totalOfPages - 3) {
+        setShotDots("end");
+      }
+    }
+  }, [currentPage, totalOfPages]);
+  console.log({
+    showDots: showDots
+  });
   return React.createElement(PaginationContainer, {
     className: "pagination-container " + (props.className || "")
-  }, React.createElement(BallContainer, null, React.createElement(FiChevronLeft, null)), React.createElement(BallContainer, null, React.createElement(FiChevronRight, null)));
+  }, React.createElement(BallContainer, null, React.createElement(FiChevronLeft, null)), totalOfPages > 7 && renderPagesWithDots, totalOfPages <= 7 && renderPagesWithoutDots, React.createElement(BallContainer, null, React.createElement(FiChevronRight, null)));
 };
 
 var _templateObject$a;

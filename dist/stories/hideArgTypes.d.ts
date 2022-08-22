@@ -24,6 +24,11 @@ export declare const hideArgs: {
             disable: boolean;
         };
     };
+    paginationCallback: {
+        table: {
+            disable: boolean;
+        };
+    };
     handleSetCurrent: {
         table: {
             disable: boolean;
