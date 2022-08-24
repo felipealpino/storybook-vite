@@ -7,6 +7,13 @@ export const PaginationContainer = styled.div`
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
+
+  .dots {
+    width: 2rem;
+    height: 2rem;
+    text-align: center;
+    line-height: 2rem;
+  }
 `;
 
 type IBallContainer = Pick<IPagination, "status" | "rounded" | "disabled"> & {

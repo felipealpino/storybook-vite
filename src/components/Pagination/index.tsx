@@ -34,7 +34,7 @@ const Pagination: React.FC<IPagination> = ({
     let toRender: JSX.Element[] = [];
 
     if (showDots === "end") {
-      for (let i = fisrtPageStartsIn; i <= 5; i++) {
+      for (let i = fisrtPageStartsIn; i < 5; i++) {
         toRender.push(
           <BallContainer
             status={status}
@@ -48,7 +48,7 @@ const Pagination: React.FC<IPagination> = ({
         );
       }
 
-      toRender.push(<span>...</span>);
+      toRender.push(<span className="dots">...</span>);
       toRender.push(
         <BallContainer
           status={status}
@@ -75,11 +75,17 @@ const Pagination: React.FC<IPagination> = ({
         </BallContainer>
       );
 
-      toRender.push(<span>...</span>);
+      toRender.push(<span className="dots">...</span>);
 
-      for (let i = lastPage - 3; i <= lastPage; i++) {
+      for (let i = lastPage - 4; i <= lastPage; i++) {
         toRender.push(
-          <BallContainer isCurrentPage={i === currentPage} key={i}>
+          <BallContainer
+            status={status}
+            disabled={disabled}
+            rounded={rounded}
+            isCurrentPage={i === currentPage}
+            key={i}
+          >
             {i}
           </BallContainer>
         );
@@ -89,6 +95,9 @@ const Pagination: React.FC<IPagination> = ({
     if (showDots === "both") {
       toRender.push(
         <BallContainer
+          status={status}
+          disabled={disabled}
+          rounded={rounded}
           isCurrentPage={fisrtPageStartsIn === currentPage}
           key={fisrtPageStartsIn}
         >
@@ -96,27 +105,47 @@ const Pagination: React.FC<IPagination> = ({
         </BallContainer>
       );
 
-      toRender.push(<span>...</span>);
+      toRender.push(<span className="dots">...</span>);
 
       for (let i = currentPage - 1; i <= currentPage + 1; i++) {
         toRender.push(
-          <BallContainer isCurrentPage={i === currentPage} key={i}>
+          <BallContainer
+            status={status}
+            disabled={disabled}
+            rounded={rounded}
+            isCurrentPage={i === currentPage}
+            key={i}
+          >
             {i}
           </BallContainer>
         );
       }
 
-      toRender.push(<span>...</span>);
+      toRender.push(<span className="dots">...</span>);
 
       toRender.push(
-        <BallContainer isCurrentPage={lastPage === currentPage} key={lastPage}>
+        <BallContainer
+          status={status}
+          disabled={disabled}
+          rounded={rounded}
+          isCurrentPage={lastPage === currentPage}
+          key={lastPage}
+        >
           {lastPage}
         </BallContainer>
       );
     }
 
     return toRender;
-  }, [currentPage, lastPage, showDots, fisrtPageStartsIn, rounded, disabled]);
+  }, [
+    currentPage,
+    lastPage,
+    showDots,
+    fisrtPageStartsIn,
+    rounded,
+    disabled,
+    status,
+  ]);
 
   const renderPagesWithoutDots = useMemo(() => {
     let toRender: JSX.Element[] = [];
@@ -125,6 +154,7 @@ const Pagination: React.FC<IPagination> = ({
       toRender.push(
         <BallContainer
           status={status}
+          disabled={disabled}
           rounded={rounded}
           isCurrentPage={i === currentPage}
           key={i}
@@ -135,7 +165,7 @@ const Pagination: React.FC<IPagination> = ({
     }
 
     return toRender;
-  }, [currentPage, lastPage, showDots, fisrtPageStartsIn, rounded, disabled]);
+  }, [currentPage, lastPage, fisrtPageStartsIn, rounded, disabled, status]);
 
   const handleClickPreviousPage = useCallback(() => {
     if (isInFirstPage) return;
