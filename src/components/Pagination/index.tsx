@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { ElementStatus } from "../../shared/theme/colors";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
@@ -9,26 +9,40 @@ export interface IPagination {
   currentPage: number;
   status?: ElementStatus;
   rounded?: boolean;
+  disabled?: boolean;
   className?: string;
-  paginationCallback: (page: number) => Promise<void>;
+  fisrtPageStartsIn: 0 | 1;
+  paginationCallback: (pageToGo: number) => any;
 }
 
 const Pagination: React.FC<IPagination> = ({
-  rounded = true,
+  totalOfPages,
+  currentPage,
+  className,
+  fisrtPageStartsIn = 0,
+  rounded,
+  status,
   paginationCallback,
-  totalOfPages = 15,
-  currentPage = 0,
-  ...props
+  disabled,
 }) => {
   const [showDots, setShotDots] = useState<"start" | "end" | "both">();
+  const lastPage = fisrtPageStartsIn === 0 ? totalOfPages - 1 : totalOfPages;
+  const isInLastPage = currentPage === lastPage;
+  const isInFirstPage = currentPage === fisrtPageStartsIn;
 
   const renderPagesWithDots = useMemo(() => {
     let toRender: JSX.Element[] = [];
 
     if (showDots === "end") {
-      for (let i = 1; i <= 5; i++) {
+      for (let i = fisrtPageStartsIn; i <= 5; i++) {
         toRender.push(
-          <BallContainer isCurrentPage={i === currentPage} key={i}>
+          <BallContainer
+            status={status}
+            disabled={disabled}
+            rounded={rounded}
+            isCurrentPage={i === currentPage}
+            key={i}
+          >
             {i}
           </BallContainer>
         );
@@ -37,24 +51,33 @@ const Pagination: React.FC<IPagination> = ({
       toRender.push(<span>...</span>);
       toRender.push(
         <BallContainer
-          isCurrentPage={totalOfPages === currentPage}
-          key={totalOfPages}
+          status={status}
+          disabled={disabled}
+          rounded={rounded}
+          isCurrentPage={lastPage === currentPage}
+          key={lastPage}
         >
-          {totalOfPages}
+          {lastPage}
         </BallContainer>
       );
     }
 
     if (showDots === "start") {
       toRender.push(
-        <BallContainer isCurrentPage={1 === currentPage} key={1}>
-          {1}
+        <BallContainer
+          status={status}
+          disabled={disabled}
+          rounded={rounded}
+          isCurrentPage={fisrtPageStartsIn === currentPage}
+          key={fisrtPageStartsIn}
+        >
+          {fisrtPageStartsIn}
         </BallContainer>
       );
 
       toRender.push(<span>...</span>);
 
-      for (let i = totalOfPages - 3; i <= totalOfPages; i++) {
+      for (let i = lastPage - 3; i <= lastPage; i++) {
         toRender.push(
           <BallContainer isCurrentPage={i === currentPage} key={i}>
             {i}
@@ -65,8 +88,11 @@ const Pagination: React.FC<IPagination> = ({
 
     if (showDots === "both") {
       toRender.push(
-        <BallContainer isCurrentPage={1 === currentPage} key={1}>
-          {1}
+        <BallContainer
+          isCurrentPage={fisrtPageStartsIn === currentPage}
+          key={fisrtPageStartsIn}
+        >
+          {fisrtPageStartsIn}
         </BallContainer>
       );
 
@@ -83,31 +109,43 @@ const Pagination: React.FC<IPagination> = ({
       toRender.push(<span>...</span>);
 
       toRender.push(
-        <BallContainer
-          isCurrentPage={totalOfPages === currentPage}
-          key={totalOfPages}
-        >
-          {totalOfPages}
+        <BallContainer isCurrentPage={lastPage === currentPage} key={lastPage}>
+          {lastPage}
         </BallContainer>
       );
     }
 
     return toRender;
-  }, [currentPage, totalOfPages, showDots]);
+  }, [currentPage, lastPage, showDots, fisrtPageStartsIn, rounded, disabled]);
 
   const renderPagesWithoutDots = useMemo(() => {
     let toRender: JSX.Element[] = [];
 
-    for (let i = 1; i <= totalOfPages; i++) {
+    for (let i = fisrtPageStartsIn; i <= lastPage; i++) {
       toRender.push(
-        <BallContainer isCurrentPage={i === currentPage} key={i}>
+        <BallContainer
+          status={status}
+          rounded={rounded}
+          isCurrentPage={i === currentPage}
+          key={i}
+        >
           {i}
         </BallContainer>
       );
     }
 
     return toRender;
-  }, [currentPage, totalOfPages, showDots]);
+  }, [currentPage, lastPage, showDots, fisrtPageStartsIn, rounded, disabled]);
+
+  const handleClickPreviousPage = useCallback(() => {
+    if (isInFirstPage) return;
+    paginationCallback(currentPage - 1);
+  }, [isInFirstPage, currentPage]);
+
+  const handleClickNextPage = useCallback(() => {
+    if (isInLastPage) return;
+    paginationCallback(currentPage + 1);
+  }, [isInLastPage, currentPage]);
 
   useEffect(() => {
     if (totalOfPages > 7) {
@@ -121,19 +159,26 @@ const Pagination: React.FC<IPagination> = ({
     }
   }, [currentPage, totalOfPages]);
 
-  console.log({ showDots });
   return (
-    <PaginationContainer
-      className={`pagination-container ${props.className || ""}`}
-    >
-      <BallContainer>
+    <PaginationContainer className={`pagination-container ${className || ""}`}>
+      <BallContainer
+        status={status}
+        rounded={rounded}
+        disabled={disabled || isInFirstPage}
+        onClick={handleClickPreviousPage}
+      >
         <FiChevronLeft />
       </BallContainer>
 
       {totalOfPages > 7 && renderPagesWithDots}
       {totalOfPages <= 7 && renderPagesWithoutDots}
 
-      <BallContainer>
+      <BallContainer
+        status={status}
+        rounded={rounded}
+        disabled={disabled || isInLastPage}
+        onClick={handleClickNextPage}
+      >
         <FiChevronRight />
       </BallContainer>
     </PaginationContainer>
