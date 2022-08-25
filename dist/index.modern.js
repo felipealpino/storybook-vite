@@ -617,7 +617,8 @@ var Pagination = function Pagination(_ref) {
       }
 
       toRender.push(React.createElement("span", {
-        className: "dots"
+        className: "dots",
+        key: v4()
       }, "..."));
       toRender.push(React.createElement(BallContainer, {
         status: status,
@@ -643,7 +644,8 @@ var Pagination = function Pagination(_ref) {
         }
       }, fisrtPageStartsIn));
       toRender.push(React.createElement("span", {
-        className: "dots"
+        className: "dots",
+        key: v4()
       }, "..."));
 
       var _loop2 = function _loop2(_i) {
@@ -676,7 +678,8 @@ var Pagination = function Pagination(_ref) {
         }
       }, fisrtPageStartsIn));
       toRender.push(React.createElement("span", {
-        className: "dots"
+        className: "dots",
+        key: v4()
       }, "..."));
 
       var _loop3 = function _loop3(_i2) {
@@ -697,7 +700,8 @@ var Pagination = function Pagination(_ref) {
       }
 
       toRender.push(React.createElement("span", {
-        className: "dots"
+        className: "dots",
+        key: v4()
       }, "..."));
       toRender.push(React.createElement(BallContainer, {
         status: status,

@@ -3,8 +3,8 @@ import { BaseStyles } from "../BaseStyles";
 import { Fragment } from "react";
 import { Input } from "./Input";
 import { hideArgs } from "../../stories/hideArgTypes";
+import React from "react";
 
-console.log(hideArgs);
 export default {
   title: "INPUTs/Input",
   component: Input,

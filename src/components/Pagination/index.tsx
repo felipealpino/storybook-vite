@@ -49,7 +49,11 @@ const Pagination: React.FC<IPagination> = ({
         );
       }
 
-      toRender.push(<span className="dots">...</span>);
+      toRender.push(
+        <span className="dots" key={uuidv4()}>
+          ...
+        </span>
+      );
       toRender.push(
         <BallContainer
           status={status}
@@ -78,7 +82,11 @@ const Pagination: React.FC<IPagination> = ({
         </BallContainer>
       );
 
-      toRender.push(<span className="dots">...</span>);
+      toRender.push(
+        <span className="dots" key={uuidv4()}>
+          ...
+        </span>
+      );
 
       for (let i = lastPage - 4; i <= lastPage; i++) {
         toRender.push(
@@ -110,7 +118,11 @@ const Pagination: React.FC<IPagination> = ({
         </BallContainer>
       );
 
-      toRender.push(<span className="dots">...</span>);
+      toRender.push(
+        <span className="dots" key={uuidv4()}>
+          ...
+        </span>
+      );
 
       for (let i = currentPage - 1; i <= currentPage + 1; i++) {
         toRender.push(
@@ -127,7 +139,11 @@ const Pagination: React.FC<IPagination> = ({
         );
       }
 
-      toRender.push(<span className="dots">...</span>);
+      toRender.push(
+        <span className="dots" key={uuidv4()}>
+          ...
+        </span>
+      );
 
       toRender.push(
         <BallContainer
