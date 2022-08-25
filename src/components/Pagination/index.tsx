@@ -138,13 +138,13 @@ const Pagination: React.FC<IPagination> = ({
 
     return toRender;
   }, [
-    currentPage,
-    lastPage,
     showDots,
-    fisrtPageStartsIn,
-    rounded,
-    disabled,
     status,
+    disabled,
+    rounded,
+    lastPage,
+    currentPage,
+    fisrtPageStartsIn,
   ]);
 
   const renderPagesWithoutDots = useMemo(() => {
@@ -165,17 +165,17 @@ const Pagination: React.FC<IPagination> = ({
     }
 
     return toRender;
-  }, [currentPage, lastPage, fisrtPageStartsIn, rounded, disabled, status]);
+  }, [currentPage, disabled, fisrtPageStartsIn, lastPage, rounded, status]);
 
   const handleClickPreviousPage = useCallback(() => {
     if (isInFirstPage) return;
     paginationCallback(currentPage - 1);
-  }, [isInFirstPage, currentPage]);
+  }, [isInFirstPage, paginationCallback, currentPage]);
 
   const handleClickNextPage = useCallback(() => {
     if (isInLastPage) return;
     paginationCallback(currentPage + 1);
-  }, [isInLastPage, currentPage]);
+  }, [isInLastPage, paginationCallback, currentPage]);
 
   useEffect(() => {
     if (totalOfPages > 7) {
