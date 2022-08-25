@@ -11,7 +11,7 @@ export interface IPagination {
   rounded?: boolean;
   disabled?: boolean;
   className?: string;
-  fisrtPageStartsIn: 0 | 1;
+  fisrtPageStartsIn?: 0 | 1;
   paginationCallback: (pageToGo: number) => any;
 }
 
