@@ -39,6 +39,5 @@ const Template: ComponentStory<typeof Pagination> = (args) => {
 
 export const Primary = Template.bind({});
 Primary.args = {
-  currentPage: 0,
   totalOfPages: 10,
 };

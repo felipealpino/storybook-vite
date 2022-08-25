@@ -42,6 +42,7 @@ const Pagination: React.FC<IPagination> = ({
             rounded={rounded}
             isCurrentPage={i === currentPage}
             key={i}
+            onClick={() => paginationCallback(i)}
           >
             {i}
           </BallContainer>
@@ -56,6 +57,7 @@ const Pagination: React.FC<IPagination> = ({
           rounded={rounded}
           isCurrentPage={lastPage === currentPage}
           key={lastPage}
+          onClick={() => paginationCallback(lastPage)}
         >
           {lastPage}
         </BallContainer>
@@ -70,6 +72,7 @@ const Pagination: React.FC<IPagination> = ({
           rounded={rounded}
           isCurrentPage={fisrtPageStartsIn === currentPage}
           key={fisrtPageStartsIn}
+          onClick={() => paginationCallback(fisrtPageStartsIn)}
         >
           {fisrtPageStartsIn}
         </BallContainer>
@@ -85,6 +88,7 @@ const Pagination: React.FC<IPagination> = ({
             rounded={rounded}
             isCurrentPage={i === currentPage}
             key={i}
+            onClick={() => paginationCallback(i)}
           >
             {i}
           </BallContainer>
@@ -100,6 +104,7 @@ const Pagination: React.FC<IPagination> = ({
           rounded={rounded}
           isCurrentPage={fisrtPageStartsIn === currentPage}
           key={fisrtPageStartsIn}
+          onClick={() => paginationCallback(fisrtPageStartsIn)}
         >
           {fisrtPageStartsIn}
         </BallContainer>
@@ -115,6 +120,7 @@ const Pagination: React.FC<IPagination> = ({
             rounded={rounded}
             isCurrentPage={i === currentPage}
             key={i}
+            onClick={() => paginationCallback(i)}
           >
             {i}
           </BallContainer>
@@ -130,6 +136,7 @@ const Pagination: React.FC<IPagination> = ({
           rounded={rounded}
           isCurrentPage={lastPage === currentPage}
           key={lastPage}
+          onClick={() => paginationCallback(lastPage)}
         >
           {lastPage}
         </BallContainer>
@@ -145,6 +152,7 @@ const Pagination: React.FC<IPagination> = ({
     lastPage,
     currentPage,
     fisrtPageStartsIn,
+    paginationCallback,
   ]);
 
   const renderPagesWithoutDots = useMemo(() => {
@@ -158,6 +166,7 @@ const Pagination: React.FC<IPagination> = ({
           rounded={rounded}
           isCurrentPage={i === currentPage}
           key={i}
+          onClick={() => paginationCallback(i)}
         >
           {i}
         </BallContainer>
@@ -165,7 +174,15 @@ const Pagination: React.FC<IPagination> = ({
     }
 
     return toRender;
-  }, [currentPage, disabled, fisrtPageStartsIn, lastPage, rounded, status]);
+  }, [
+    currentPage,
+    disabled,
+    fisrtPageStartsIn,
+    lastPage,
+    paginationCallback,
+    rounded,
+    status,
+  ]);
 
   const handleClickPreviousPage = useCallback(() => {
     if (isInFirstPage) return;
@@ -190,7 +207,10 @@ const Pagination: React.FC<IPagination> = ({
   }, [currentPage, totalOfPages]);
 
   return (
-    <PaginationContainer className={`pagination-container ${className || ""}`}>
+    <PaginationContainer
+      className={`pagination-container ${className || ""}`}
+      key={showDots}
+    >
       <BallContainer
         status={status}
         rounded={rounded}
