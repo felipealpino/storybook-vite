@@ -557,53 +557,91 @@ var Input = function Input(_ref) {
   }));
 };
 
-var _templateObject$9, _templateObject2, _templateObject3;
-var PaginationContainer = styled$1__default.div(_templateObject$9 || (_templateObject$9 = _taggedTemplateLiteralLoose(["\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  gap: 0.5rem;\n"])));
-var BallContainer = styled$1__default.div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteralLoose(["\n  cursor: pointer;\n  border: 1px solid black;\n  width: 2rem;\n  height: 2rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: 1rem;\n\n  ", "\n\n  transition: filter 0.3s;\n\n  &:hover {\n    border: 2px solid black;\n    filter: brightness(0.5);\n  }\n"])), function (_ref) {
-  var isCurrentPage = _ref.isCurrentPage;
-  return isCurrentPage && styled$1.css(_templateObject3 || (_templateObject3 = _taggedTemplateLiteralLoose(["\n      background-color: blue;\n      color: white;\n    "])));
+var _templateObject$9, _templateObject2, _templateObject3, _templateObject4;
+var PaginationContainer = styled$1__default.div(_templateObject$9 || (_templateObject$9 = _taggedTemplateLiteralLoose(["\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  gap: 0.5rem;\n\n  .dots {\n    width: 2rem;\n    height: 2rem;\n    text-align: center;\n    line-height: 2rem;\n  }\n"])));
+var BallContainer = styled$1__default.div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteralLoose(["\n  cursor: ", ";\n  border: 1px solid ", ";\n  width: 2rem;\n  height: 2rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: ", ";\n  opacity: ", ";\n\n  ", "\n\n  transition: filter 0.3s;\n\n  ", "\n"])), function (_ref) {
+  var disabled = _ref.disabled;
+  return disabled ? "default" : "pointer";
+}, function (_ref2) {
+  var status = _ref2.status;
+  return colorGet(status, 500);
+}, function (_ref3) {
+  var rounded = _ref3.rounded;
+  return rounded ? "1rem" : "5px";
+}, function (_ref4) {
+  var disabled = _ref4.disabled;
+  return disabled ? "0.5" : "1";
+}, function (_ref5) {
+  var isCurrentPage = _ref5.isCurrentPage,
+      status = _ref5.status;
+  return isCurrentPage && styled$1.css(_templateObject3 || (_templateObject3 = _taggedTemplateLiteralLoose(["\n      background-color: ", ";\n    "])), colorGet(status, 200));
+}, function (_ref6) {
+  var disabled = _ref6.disabled,
+      status = _ref6.status;
+  return !disabled && styled$1.css(_templateObject4 || (_templateObject4 = _taggedTemplateLiteralLoose(["\n      &:hover {\n        border: 2px solid ", ";\n        filter: brightness(0.9);\n      }\n    "])), colorGet(status, 700));
 });
 
-var _excluded$5 = ["rounded", "paginationCallback", "totalOfPages", "currentPage"];
-
 var Pagination = function Pagination(_ref) {
-  var _ref$totalOfPages = _ref.totalOfPages,
-      totalOfPages = _ref$totalOfPages === void 0 ? 15 : _ref$totalOfPages,
-      _ref$currentPage = _ref.currentPage,
-      currentPage = _ref$currentPage === void 0 ? 0 : _ref$currentPage,
-      props = _objectWithoutPropertiesLoose(_ref, _excluded$5);
+  var totalOfPages = _ref.totalOfPages,
+      currentPage = _ref.currentPage,
+      className = _ref.className,
+      _ref$fisrtPageStartsI = _ref.fisrtPageStartsIn,
+      fisrtPageStartsIn = _ref$fisrtPageStartsI === void 0 ? 0 : _ref$fisrtPageStartsI,
+      rounded = _ref.rounded,
+      status = _ref.status,
+      paginationCallback = _ref.paginationCallback,
+      disabled = _ref.disabled;
 
   var _useState = React.useState(),
       showDots = _useState[0],
       setShotDots = _useState[1];
 
+  var lastPage = fisrtPageStartsIn === 0 ? totalOfPages - 1 : totalOfPages;
+  var isInLastPage = currentPage === lastPage;
+  var isInFirstPage = currentPage === fisrtPageStartsIn;
   var renderPagesWithDots = React.useMemo(function () {
     var toRender = [];
 
     if (showDots === "end") {
-      for (var i = 1; i <= 5; i++) {
+      for (var i = fisrtPageStartsIn; i < 5; i++) {
         toRender.push(React__default.createElement(BallContainer, {
+          status: status,
+          disabled: disabled,
+          rounded: rounded,
           isCurrentPage: i === currentPage,
           key: i
         }, i));
       }
 
-      toRender.push(React__default.createElement("span", null, "..."));
+      toRender.push(React__default.createElement("span", {
+        className: "dots"
+      }, "..."));
       toRender.push(React__default.createElement(BallContainer, {
-        isCurrentPage: totalOfPages === currentPage,
-        key: totalOfPages
-      }, totalOfPages));
+        status: status,
+        disabled: disabled,
+        rounded: rounded,
+        isCurrentPage: lastPage === currentPage,
+        key: lastPage
+      }, lastPage));
     }
 
     if (showDots === "start") {
       toRender.push(React__default.createElement(BallContainer, {
-        isCurrentPage: 1 === currentPage,
-        key: 1
-      }, 1));
-      toRender.push(React__default.createElement("span", null, "..."));
+        status: status,
+        disabled: disabled,
+        rounded: rounded,
+        isCurrentPage: fisrtPageStartsIn === currentPage,
+        key: fisrtPageStartsIn
+      }, fisrtPageStartsIn));
+      toRender.push(React__default.createElement("span", {
+        className: "dots"
+      }, "..."));
 
-      for (var _i = totalOfPages - 3; _i <= totalOfPages; _i++) {
+      for (var _i = lastPage - 4; _i <= lastPage; _i++) {
         toRender.push(React__default.createElement(BallContainer, {
+          status: status,
+          disabled: disabled,
+          rounded: rounded,
           isCurrentPage: _i === currentPage,
           key: _i
         }, _i));
@@ -612,39 +650,63 @@ var Pagination = function Pagination(_ref) {
 
     if (showDots === "both") {
       toRender.push(React__default.createElement(BallContainer, {
-        isCurrentPage: 1 === currentPage,
-        key: 1
-      }, 1));
-      toRender.push(React__default.createElement("span", null, "..."));
+        status: status,
+        disabled: disabled,
+        rounded: rounded,
+        isCurrentPage: fisrtPageStartsIn === currentPage,
+        key: fisrtPageStartsIn
+      }, fisrtPageStartsIn));
+      toRender.push(React__default.createElement("span", {
+        className: "dots"
+      }, "..."));
 
       for (var _i2 = currentPage - 1; _i2 <= currentPage + 1; _i2++) {
         toRender.push(React__default.createElement(BallContainer, {
+          status: status,
+          disabled: disabled,
+          rounded: rounded,
           isCurrentPage: _i2 === currentPage,
           key: _i2
         }, _i2));
       }
 
-      toRender.push(React__default.createElement("span", null, "..."));
+      toRender.push(React__default.createElement("span", {
+        className: "dots"
+      }, "..."));
       toRender.push(React__default.createElement(BallContainer, {
-        isCurrentPage: totalOfPages === currentPage,
-        key: totalOfPages
-      }, totalOfPages));
+        status: status,
+        disabled: disabled,
+        rounded: rounded,
+        isCurrentPage: lastPage === currentPage,
+        key: lastPage
+      }, lastPage));
     }
 
     return toRender;
-  }, [currentPage, totalOfPages, showDots]);
+  }, [currentPage, lastPage, showDots, fisrtPageStartsIn, rounded, disabled, status]);
   var renderPagesWithoutDots = React.useMemo(function () {
     var toRender = [];
 
-    for (var i = 1; i <= totalOfPages; i++) {
+    for (var i = fisrtPageStartsIn; i <= lastPage; i++) {
       toRender.push(React__default.createElement(BallContainer, {
+        status: status,
+        disabled: disabled,
+        rounded: rounded,
         isCurrentPage: i === currentPage,
         key: i
       }, i));
     }
 
     return toRender;
-  }, [currentPage, totalOfPages, showDots]);
+  }, [currentPage, lastPage, fisrtPageStartsIn, rounded, disabled, status]);
+  var handleClickPreviousPage = React.useCallback(function () {
+    if (isInFirstPage) return;
+    paginationCallback(currentPage - 1);
+  }, [isInFirstPage, currentPage]);
+  var handleClickNextPage = React.useCallback(function () {
+    if (isInLastPage) return;
+    paginationCallback(currentPage + 1);
+  }, [isInLastPage, currentPage]);
   React.useEffect(function () {
     if (totalOfPages > 7) {
       if (currentPage > 4 && currentPage < totalOfPages - 3) {
@@ -656,12 +718,19 @@ var Pagination = function Pagination(_ref) {
       }
     }
   }, [currentPage, totalOfPages]);
-  console.log({
-    showDots: showDots
-  });
   return React__default.createElement(PaginationContainer, {
-    className: "pagination-container " + (props.className || "")
-  }, React__default.createElement(BallContainer, null, React__default.createElement(fi.FiChevronLeft, null)), totalOfPages > 7 && renderPagesWithDots, totalOfPages <= 7 && renderPagesWithoutDots, React__default.createElement(BallContainer, null, React__default.createElement(fi.FiChevronRight, null)));
+    className: "pagination-container " + (className || "")
+  }, React__default.createElement(BallContainer, {
+    status: status,
+    rounded: rounded,
+    disabled: disabled || isInFirstPage,
+    onClick: handleClickPreviousPage
+  }, React__default.createElement(fi.FiChevronLeft, null)), totalOfPages > 7 && renderPagesWithDots, totalOfPages <= 7 && renderPagesWithoutDots, React__default.createElement(BallContainer, {
+    status: status,
+    rounded: rounded,
+    disabled: disabled || isInLastPage,
+    onClick: handleClickNextPage
+  }, React__default.createElement(fi.FiChevronRight, null)));
 };
 
 var _templateObject$a;
@@ -688,11 +757,11 @@ var SelectContainer = styled$1__default.div(_templateObject$a || (_templateObjec
   return props.optionsFillSpace ? 'none' : "2px solid " + colorGet(props.status, 500);
 });
 
-var _excluded$6 = ["handleOnChange"];
+var _excluded$5 = ["handleOnChange"];
 
 var Select = function Select(_ref) {
   var handleOnChange = _ref.handleOnChange,
-      props = _objectWithoutPropertiesLoose(_ref, _excluded$6);
+      props = _objectWithoutPropertiesLoose(_ref, _excluded$5);
 
   var _useState = React.useState(false),
       isOpen = _useState[0],
@@ -777,14 +846,14 @@ var SpinnerBall = styled$1__default.div(_templateObject2$1 || (_templateObject2$
   return colorGet(status, 300);
 });
 
-var _excluded$7 = ["fixed", "size"];
+var _excluded$6 = ["fixed", "size"];
 
 var Spinner = function Spinner(_ref) {
   var _ref$fixed = _ref.fixed,
       fixed = _ref$fixed === void 0 ? true : _ref$fixed,
       _ref$size = _ref.size,
       size = _ref$size === void 0 ? 30 : _ref$size,
-      props = _objectWithoutPropertiesLoose(_ref, _excluded$7);
+      props = _objectWithoutPropertiesLoose(_ref, _excluded$6);
 
   return React__default.createElement(SpinnerContainer, Object.assign({
     className: "spinner-container " + (props.className || ''),
@@ -863,11 +932,11 @@ var SwipeToggleContainer = styled$1__default.label(_templateObject$c || (_templa
   return statusCheck ? "3px" : "unset";
 });
 
-var _excluded$8 = ["handleOnChange"];
+var _excluded$7 = ["handleOnChange"];
 
 var SwipeToggle = function SwipeToggle(_ref) {
   var handleOnChange = _ref.handleOnChange,
-      props = _objectWithoutPropertiesLoose(_ref, _excluded$8);
+      props = _objectWithoutPropertiesLoose(_ref, _excluded$7);
 
   var _useState = React.useState(false),
       statusCheck = _useState[0],
@@ -911,7 +980,7 @@ var TabContainer = styled$1__default.div(_templateObject$d || (_templateObject$d
   return iconposition === 'top' || iconposition === 'bottom' ? 'column' : 'row';
 });
 
-var _excluded$9 = ["className", "iconposition", "icon", "clickTabCallback", "handleOnChangeTab"];
+var _excluded$8 = ["className", "iconposition", "icon", "clickTabCallback", "handleOnChangeTab"];
 
 var Tab = function Tab(_ref) {
   var className = _ref.className,
@@ -920,7 +989,7 @@ var Tab = function Tab(_ref) {
       Icon = _ref.icon,
       clickTabCallback = _ref.clickTabCallback,
       handleOnChangeTab = _ref.handleOnChangeTab,
-      props = _objectWithoutPropertiesLoose(_ref, _excluded$9);
+      props = _objectWithoutPropertiesLoose(_ref, _excluded$8);
 
   var handleOnClick = React.useCallback(function () {
     handleOnChangeTab(props.index);
@@ -955,11 +1024,11 @@ var TabsContainer = styled$1__default.div(_templateObject$e || (_templateObject$
   return colorGet(status, 600);
 });
 
-var _excluded$a = ["className"];
+var _excluded$9 = ["className"];
 
 var Tabs = function Tabs(_ref) {
   var className = _ref.className,
-      props = _objectWithoutPropertiesLoose(_ref, _excluded$a);
+      props = _objectWithoutPropertiesLoose(_ref, _excluded$9);
 
   var _useState = React.useState(0),
       selectedTab = _useState[0],
@@ -1041,12 +1110,12 @@ var ContainerTextArea = styled$1__default.div(_templateObject$f || (_templateObj
   return resizable;
 }, colorGet('danger', 500));
 
-var _excluded$b = ["resizable"];
+var _excluded$a = ["resizable"];
 
 var TextArea = function TextArea(_ref) {
   var _ref$resizable = _ref.resizable,
       resizable = _ref$resizable === void 0 ? 'both' : _ref$resizable,
-      props = _objectWithoutPropertiesLoose(_ref, _excluded$b);
+      props = _objectWithoutPropertiesLoose(_ref, _excluded$a);
 
   return React__default.createElement(ContainerTextArea, {
     className: "textareaform-container " + (props.className || ''),
@@ -1139,7 +1208,7 @@ var TooltipContainer = styled$1__default.div(_templateObject$g || (_templateObje
   return position === 'top' && "\n        bottom: -10px;\n        border-color: " + colorGet(status, 500) + " transparent transparent  transparent;\n    ";
 });
 
-var _excluded$c = ["clickable", "status", "position"];
+var _excluded$b = ["clickable", "status", "position"];
 
 var Tooltip = function Tooltip(_ref) {
   var _ref$clickable = _ref.clickable,
@@ -1148,7 +1217,7 @@ var Tooltip = function Tooltip(_ref) {
       status = _ref$status === void 0 ? 'danger' : _ref$status,
       _ref$position = _ref.position,
       position = _ref$position === void 0 ? 'bottom' : _ref$position,
-      props = _objectWithoutPropertiesLoose(_ref, _excluded$c);
+      props = _objectWithoutPropertiesLoose(_ref, _excluded$b);
 
   var _useState = React.useState(false),
       show = _useState[0],
@@ -1208,7 +1277,7 @@ var ToastCardContainer = styled$1__default.div(_templateObject$h || (_templateOb
   return position === "bottom-left" && " \n    bottom: " + (myIndexInArray * 100 + 10) + "px;\n    left: 12px;\n    transition: transform " + timeToUnmount + "ms ease-in-out;\n    transform: translateX(" + (shouldShow ? "0" : "-200%") + ");\n  ";
 });
 
-var _excluded$d = ["duration", "position", "handleOnClick"];
+var _excluded$c = ["duration", "position", "handleOnClick"];
 
 var ToastCard = function ToastCard(_ref) {
   var _ref$duration = _ref.duration,
@@ -1216,7 +1285,7 @@ var ToastCard = function ToastCard(_ref) {
       _ref$position = _ref.position,
       position = _ref$position === void 0 ? "top-right" : _ref$position,
       handleOnClick = _ref.handleOnClick,
-      props = _objectWithoutPropertiesLoose(_ref, _excluded$d);
+      props = _objectWithoutPropertiesLoose(_ref, _excluded$c);
 
   var _useToast = useToast(),
       toastListCurrent = _useToast.toastListCurrent;

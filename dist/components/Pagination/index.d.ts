@@ -5,8 +5,10 @@ export interface IPagination {
     currentPage: number;
     status?: ElementStatus;
     rounded?: boolean;
+    disabled?: boolean;
     className?: string;
-    paginationCallback: (page: number) => Promise<void>;
+    fisrtPageStartsIn: 0 | 1;
+    paginationCallback: (pageToGo: number) => any;
 }
 declare const Pagination: React.FC<IPagination>;
 export { Pagination };
