@@ -605,7 +605,7 @@ var Pagination = function Pagination(_ref) {
           disabled: disabled,
           rounded: rounded,
           isCurrentPage: i === currentPage,
-          key: i,
+          key: v4(),
           onClick: function onClick() {
             return paginationCallback(i);
           }
@@ -624,7 +624,7 @@ var Pagination = function Pagination(_ref) {
         disabled: disabled,
         rounded: rounded,
         isCurrentPage: lastPage === currentPage,
-        key: lastPage,
+        key: v4(),
         onClick: function onClick() {
           return paginationCallback(lastPage);
         }
@@ -637,7 +637,7 @@ var Pagination = function Pagination(_ref) {
         disabled: disabled,
         rounded: rounded,
         isCurrentPage: fisrtPageStartsIn === currentPage,
-        key: fisrtPageStartsIn,
+        key: v4(),
         onClick: function onClick() {
           return paginationCallback(fisrtPageStartsIn);
         }
@@ -652,7 +652,7 @@ var Pagination = function Pagination(_ref) {
           disabled: disabled,
           rounded: rounded,
           isCurrentPage: _i === currentPage,
-          key: _i,
+          key: v4(),
           onClick: function onClick() {
             return paginationCallback(_i);
           }
@@ -670,7 +670,7 @@ var Pagination = function Pagination(_ref) {
         disabled: disabled,
         rounded: rounded,
         isCurrentPage: fisrtPageStartsIn === currentPage,
-        key: fisrtPageStartsIn,
+        key: v4(),
         onClick: function onClick() {
           return paginationCallback(fisrtPageStartsIn);
         }
@@ -685,7 +685,7 @@ var Pagination = function Pagination(_ref) {
           disabled: disabled,
           rounded: rounded,
           isCurrentPage: _i2 === currentPage,
-          key: _i2,
+          key: v4(),
           onClick: function onClick() {
             return paginationCallback(_i2);
           }
@@ -704,7 +704,7 @@ var Pagination = function Pagination(_ref) {
         disabled: disabled,
         rounded: rounded,
         isCurrentPage: lastPage === currentPage,
-        key: lastPage,
+        key: v4(),
         onClick: function onClick() {
           return paginationCallback(lastPage);
         }
@@ -722,7 +722,7 @@ var Pagination = function Pagination(_ref) {
         disabled: disabled,
         rounded: rounded,
         isCurrentPage: i === currentPage,
-        key: i,
+        key: v4(),
         onClick: function onClick() {
           return paginationCallback(i);
         }
@@ -745,7 +745,7 @@ var Pagination = function Pagination(_ref) {
   }, [isInLastPage, paginationCallback, currentPage]);
   useEffect(function () {
     if (totalOfPages > 7) {
-      if (currentPage > 4 && currentPage < totalOfPages - 3) {
+      if (currentPage > 3 && currentPage < totalOfPages - 3) {
         setShotDots("both");
       } else if (currentPage > 4) {
         setShotDots("start");
