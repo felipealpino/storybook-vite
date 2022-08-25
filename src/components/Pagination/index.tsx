@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { ElementStatus } from "../../shared/theme/colors";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
-
 import { BallContainer, PaginationContainer } from "./styles";
+import { v4 as uuidv4 } from "uuid";
 
 export interface IPagination {
   totalOfPages: number;
@@ -41,7 +41,7 @@ const Pagination: React.FC<IPagination> = ({
             disabled={disabled}
             rounded={rounded}
             isCurrentPage={i === currentPage}
-            key={i}
+            key={uuidv4()}
             onClick={() => paginationCallback(i)}
           >
             {i}
@@ -56,7 +56,7 @@ const Pagination: React.FC<IPagination> = ({
           disabled={disabled}
           rounded={rounded}
           isCurrentPage={lastPage === currentPage}
-          key={lastPage}
+          key={uuidv4()}
           onClick={() => paginationCallback(lastPage)}
         >
           {lastPage}
@@ -71,7 +71,7 @@ const Pagination: React.FC<IPagination> = ({
           disabled={disabled}
           rounded={rounded}
           isCurrentPage={fisrtPageStartsIn === currentPage}
-          key={fisrtPageStartsIn}
+          key={uuidv4()}
           onClick={() => paginationCallback(fisrtPageStartsIn)}
         >
           {fisrtPageStartsIn}
@@ -87,7 +87,7 @@ const Pagination: React.FC<IPagination> = ({
             disabled={disabled}
             rounded={rounded}
             isCurrentPage={i === currentPage}
-            key={i}
+            key={uuidv4()}
             onClick={() => paginationCallback(i)}
           >
             {i}
@@ -103,7 +103,7 @@ const Pagination: React.FC<IPagination> = ({
           disabled={disabled}
           rounded={rounded}
           isCurrentPage={fisrtPageStartsIn === currentPage}
-          key={fisrtPageStartsIn}
+          key={uuidv4()}
           onClick={() => paginationCallback(fisrtPageStartsIn)}
         >
           {fisrtPageStartsIn}
@@ -119,7 +119,7 @@ const Pagination: React.FC<IPagination> = ({
             disabled={disabled}
             rounded={rounded}
             isCurrentPage={i === currentPage}
-            key={i}
+            key={uuidv4()}
             onClick={() => paginationCallback(i)}
           >
             {i}
@@ -135,7 +135,7 @@ const Pagination: React.FC<IPagination> = ({
           disabled={disabled}
           rounded={rounded}
           isCurrentPage={lastPage === currentPage}
-          key={lastPage}
+          key={uuidv4()}
           onClick={() => paginationCallback(lastPage)}
         >
           {lastPage}
@@ -165,7 +165,7 @@ const Pagination: React.FC<IPagination> = ({
           disabled={disabled}
           rounded={rounded}
           isCurrentPage={i === currentPage}
-          key={i}
+          key={uuidv4()}
           onClick={() => paginationCallback(i)}
         >
           {i}
@@ -196,7 +196,7 @@ const Pagination: React.FC<IPagination> = ({
 
   useEffect(() => {
     if (totalOfPages > 7) {
-      if (currentPage > 4 && currentPage < totalOfPages - 3) {
+      if (currentPage > 3 && currentPage < totalOfPages - 3) {
         setShotDots("both");
       } else if (currentPage > 4) {
         setShotDots("start");
