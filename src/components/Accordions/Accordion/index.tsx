@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
-import { AccordionContainer } from '../../components/Accordion/styles';
-import { ElementStatus } from '../../shared/theme/colors';
+import { AccordionContainer } from './styles';
 import { FiChevronDown } from 'react-icons/fi';
+import { ElementStatus } from '../../../shared/theme/colors';
 
 export interface IAccordion {
   index?: number;
@@ -24,7 +24,7 @@ const Accordion: React.FC<IAccordion> = ({ status = 'basic', handleSetCurrent, .
   }, [handleSetCurrent, props.index]);
 
   useEffect(() => {
-    if ((props.accordionCurent || props.accordionCurent == 0) && props.accordionCurent != props.index) {
+    if ((props.accordionCurent || props.accordionCurent === 0) && props.accordionCurent !== props.index) {
       setIsOpen(false);
     }
   }, [props.accordionCurent, props.index]);

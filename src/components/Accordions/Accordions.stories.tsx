@@ -1,20 +1,21 @@
+import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { Fragment } from "react";
-import { Accordion } from ".";
 import { hideArgs } from "../../stories/hideArgTypes";
 import { BaseStyles } from "../BaseStyles";
-import { Accordions } from "./Accordions";
+import { AccordionsControlled } from "../Accordions/AccordionsControlled";
+import { Accordion } from "../Accordions/Accordion";
 
 export default {
   title: "ACCORDIONS/Open one Acordion",
-  component: Accordions,
+  component: AccordionsControlled,
   argTypes: hideArgs,
-} as ComponentMeta<typeof Accordions>;
+} as ComponentMeta<typeof AccordionsControlled>;
 
-const Template: ComponentStory<typeof Accordions> = (args) => (
+const Template: ComponentStory<typeof AccordionsControlled> = (args) => (
   <Fragment>
     <BaseStyles />
-    <Accordions gap={args.gap}>
+    <AccordionsControlled gap={args.gap}>
       <Accordion title="Accordion 1" status="primary">
         <div>oi</div>
       </Accordion>
@@ -24,7 +25,7 @@ const Template: ComponentStory<typeof Accordions> = (args) => (
       <Accordion title="Accordion 3" status="tertiary">
         <div>oi</div>
       </Accordion>
-    </Accordions>
+    </AccordionsControlled>
   </Fragment>
 );
 

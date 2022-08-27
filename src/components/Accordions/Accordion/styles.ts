@@ -1,5 +1,5 @@
-import { IAccordion } from '../../components/Accordion';
-import { colorGet } from '../../shared/utils/colorGet';
+import { IAccordion } from '.';
+import { colorGet } from '../../../shared/utils/colorGet';
 import styled from 'styled-components';
 
 type IAccordionProps = IAccordion & {
