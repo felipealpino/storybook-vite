@@ -1,51 +1,72 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { AccordionContainer } from './styles';
 import { FiChevronDown } from 'react-icons/fi';
 import { ElementStatus } from '../../../shared/theme/colors';
 
 export interface IAccordion {
-  index?: number;
-  status?: ElementStatus;
-  className?: string;
-  title?: string;
-  disabled?: boolean;
-  handleSetCurrent?: (index: number) => void;
-  accordionCurent?: number;
-  children?: React.ReactNode;
+	index?: number;
+	status?: ElementStatus;
+	className?: string;
+	title?: string;
+	descripton?: string;
+	disabled?: boolean;
+	handleSetCurrent?: (index: number) => void;
+	accordionCurent?: number;
+	children?: React.ReactNode;
 }
 
-const Accordion: React.FC<IAccordion> = ({ status = 'basic', handleSetCurrent, ...props }) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+const Accordion: React.FC<IAccordion> = ({ descripton, status, handleSetCurrent, disabled, accordionCurent, index, title, children, className }) => {
+	const [isOpen, setIsOpen] = useState<boolean>(false);
+	const accordionContentRef = useRef<HTMLDivElement>(null);
 
-  const handleOpen = useCallback(() => {
-    setIsOpen((oldState) => !oldState);
-    handleSetCurrent && handleSetCurrent(Number(props.index));
-  }, [handleSetCurrent, props.index]);
+	const handleOpen = useCallback(() => {
+		setIsOpen((oldState) => !oldState);
+		handleSetCurrent && handleSetCurrent(Number(index));
+	}, [handleSetCurrent, index]);
 
-  useEffect(() => {
-    if ((props.accordionCurent || props.accordionCurent === 0) && props.accordionCurent !== props.index) {
-      setIsOpen(false);
-    }
-  }, [props.accordionCurent, props.index]);
+	useEffect(() => {
+		if ((accordionCurent || accordionCurent === 0) && accordionCurent !== index) {
+			setIsOpen(false);
+		}
+	}, [accordionCurent, index]);
 
-  return (
-    <AccordionContainer {...props} status={status} isOpen={isOpen} className={`accordion-container ${props.className || ''}`}>
-      <div className="accordion-header" onClick={() => !props.disabled && handleOpen()}>
-        <div className="accordion-info-text">
-          <label>{props.title}</label>
-        </div>
-        <div className="accordion-icon">
-          <FiChevronDown color="#11182F" />
-        </div>
-      </div>
-      {props.children && (
-        <div className="accordion-content">
-          <div className="accordion-childrens">{props.children}</div>
-        </div>
-      )}
-    </AccordionContainer>
-  );
+	const childrenContentHeight = useMemo(() => {
+		if (!accordionContentRef.current) return;
+		if (isOpen) return accordionContentRef.current.offsetHeight + 32;
+		return 0;
+	}, [isOpen]);
+
+	return (
+		<AccordionContainer
+			childrenHeight={childrenContentHeight}
+			disabled={disabled}
+			status={status}
+			isOpen={isOpen}
+			className={`accordion-container ${className || ''}`}
+		>
+			<div className="accordion-header" onClick={() => !disabled && handleOpen()}>
+				<div className="accordion-header-content">
+					<div className="accordion-title">
+						<p>{title}</p>
+					</div>
+					<div className="accordion-description">
+						<p>{descripton}</p>
+					</div>
+				</div>
+				<div className="accordion-icon">
+					<FiChevronDown color="#11182F" />
+				</div>
+			</div>
+			{children && (
+				<div className="accordion-content">
+					<div ref={accordionContentRef} className="accordion-childrens">
+						{children}
+					</div>
+				</div>
+			)}
+		</AccordionContainer>
+	);
 };
 
 export { Accordion };

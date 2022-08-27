@@ -1,4 +1,4 @@
-export * from "./Accordions";
+export * from "./Accordions/Accordion";
 export * from "./Accordions/AccordionsControlled";
 
 export * from "./Avatar";

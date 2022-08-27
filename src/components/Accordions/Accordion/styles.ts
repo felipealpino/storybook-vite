@@ -1,57 +1,79 @@
 import { IAccordion } from '.';
 import { colorGet } from '../../../shared/utils/colorGet';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-type IAccordionProps = IAccordion & {
-  isOpen: boolean;
+type IAccordionProps = Pick<IAccordion, 'disabled' | 'status'> & {
+	isOpen: boolean;
+	childrenHeight?: number;
 };
 
 export const AccordionContainer = styled.div<IAccordionProps>`
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
-  background: ${({ status }) => colorGet(status, 400)};
-  min-height: 3rem;
-  width: inherit;
-  opacity: ${({ disabled }) => (disabled ? '0.5' : '1')};
+	box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+	background: ${({ status }) => (status ? colorGet(status, 400) : 'transparent')};
+	min-height: 2rem;
+	width: inherit;
+	opacity: ${({ disabled }) => (disabled ? '0.5' : '1')};
 
-  .accordion-header {
-    padding: 0.7rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
-  }
+	.accordion-header {
+		padding: 0 1rem;
+		min-height: inherit;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
 
-  .accordion-info-text {
-    > label {
-      cursor: inherit;
-    }
-  }
+		.accordion-header-content {
+			display: flex;
+			margin: 1rem 0;
+			gap: 1rem;
 
-  .accordion-icon {
-    transition: 0.2s ease-in-out;
-    transition-property: transform;
-    transform: ${({ isOpen }) => `rotate(${isOpen ? '-180deg' : '0deg'})`};
-    display: flex;
+			.accordion-title {
+			}
 
-    svg {
-      width: 25px;
-      height: 25px;
-    }
-  }
+			.accordion-description {
+				text-overflow: ellipsis;
+				display: -webkit-box;
+				-webkit-line-clamp: 2;
+				-webkit-box-orient: vertical;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				width: fit-content;
+				color: #777777;
+			}
+		}
 
-  .accordion-content {
-    overflow: hidden;
-    background: #ffffff;
-    padding: ${({ isOpen }) => (isOpen ? '1rem 0.7rem' : '0rem 0.7rem')};
-    max-height: ${({ isOpen }) => (isOpen ? '1000px' : '0px')};
-    transition-property: max-height, padding;
-    transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
-    transition-duration: 500ms;
-    .accordion-childrens {
-      transition-duration: 300ms;
-      transition-property: visibility, opacity;
-      opacity: ${({ isOpen }) => (isOpen ? '1' : '0')};
-      visibility: ${({ isOpen }) => (isOpen ? 'visible' : 'hidden')};
-    }
-  }
+		.accordion-icon {
+			transition: 0.2s ease-in-out;
+			transition-property: transform;
+			transform: ${({ isOpen }) => `rotate(${isOpen ? '0deg' : '-90deg'})`};
+
+			svg {
+				width: 20px;
+				height: 20px;
+			}
+		}
+	}
+
+	.accordion-content {
+		background: #ffffff;
+		transition: height, padding 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+		padding: ${({ isOpen }) => (isOpen ? '1rem' : '0 1rem')};
+
+		${({ isOpen, childrenHeight }) =>
+			!isOpen
+				? css`
+						height: 0px;
+						overflow: hidden;
+				  `
+				: css`
+						height: ${`${childrenHeight}px`};
+				  `}
+
+		.accordion-childrens {
+			transition-duration: 300ms;
+			transition-property: visibility, opacity;
+			opacity: ${({ isOpen }) => (isOpen ? '1' : '0')};
+			visibility: ${({ isOpen }) => (isOpen ? 'visible' : 'hidden')};
+		}
+	}
 `;
