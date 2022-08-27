@@ -1,44 +1,43 @@
 import { ISpinner } from '../../components/Spinner';
 import { colorGet } from '../../shared/utils/colorGet';
-import styled from 'styled-components';
-import { ElementStatus } from '../../shared/theme/colors';
+import styled, { css } from 'styled-components';
 
-interface ISpinnerBallProps {
-  status?: ElementStatus;
-  size: number;
-}
-
-export const SpinnerContainer = styled.div<ISpinner>`
-  ${({ fixed }) =>
-    fixed &&
-    ` 
+export const SpinnerContainer = styled.div<Pick<ISpinner, 'fixed'>>`
+	${({ fixed }) =>
+		fixed &&
+		` 
     position: fixed;
     inset: 0;
-    background: ${colorGet('basic', 600, true)};
+    background: ${colorGet('basic', 300, true)};
     display: flex;
     justify-content: center;
     align-items: center;
     `}
 `;
 
-export const SpinnerBall = styled.div<ISpinnerBallProps>`
-  /* 12sm 16md 24lg 32xl */
-  width: ${(props) => `${props.size}px`};
-  height: ${(props) => `${props.size}px`};
-  border: 4px solid ${({ status }) => colorGet(status, 600)};
-  border-top: 4px solid ${({ status }) => colorGet(status, 300)};
-  border-left: 4px solid ${({ status }) => colorGet(status, 300)};
-  border-right: 4px solid ${({ status }) => colorGet(status, 300)};
-  border-radius: 50%;
-  animation: spin 1s cubic-bezier(1, 1, 1, 1) infinite;
-  margin: auto;
+export const SpinnerBall = styled.div<Pick<ISpinner, 'status' | 'size' | 'fixed'>>`
+	${({ size }) => css`
+		width: ${size}px;
+		height: ${size}px;
+	`}
 
-  @keyframes spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
+	${({ status }) => css`
+		border: 4px solid ${colorGet(status, 600)};
+		border-top: 4px solid ${colorGet(status, 400)};
+		border-left: 4px solid ${colorGet(status, 400)};
+		border-right: 4px solid ${colorGet(status, 400)};
+	`}
+	
+	border-radius: 50%;
+	animation: spin 1s cubic-bezier(1, 1, 1, 1) infinite;
+	margin: ${({ fixed }) => (fixed ? 'unset' : 'auto')};
+
+	@keyframes spin {
+		from {
+			transform: rotate(0deg);
+		}
+		to {
+			transform: rotate(360deg);
+		}
+	}
 `;
