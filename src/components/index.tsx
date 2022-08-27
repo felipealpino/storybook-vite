@@ -1,5 +1,5 @@
 export * from "./Accordion";
-export * from "./Accordion/Accordions";
+export * from "./Accordion/AccordionsControlled";
 
 export * from "./Avatar";
 

@@ -1,13 +1,13 @@
 import React, { useMemo, useState, useCallback } from "react";
 
-import { AccordionsContainer } from "../../../components/Accordion/Accordions/styles";
+import { AccordionsControlledContainer } from "./styles";
 
-export interface IAccordions {
+export interface IAccordionsControlled {
   gap?: number;
   children?: React.ReactNode;
 }
 
-const Accordions: React.FC<IAccordions> = ({ gap = 0, children }) => {
+const AccordionsControlled: React.FC<IAccordionsControlled> = ({ gap = 0, children }) => {
   const [accordionCurent, setAccrodionCurrent] = useState<number>(0);
 
   const handleSetCurrent = useCallback((index: number) => {
@@ -39,10 +39,10 @@ const Accordions: React.FC<IAccordions> = ({ gap = 0, children }) => {
   }, [accordionCurent, handleSetCurrent, children]);
 
   return (
-    <AccordionsContainer gap={gap} className="accordions-list">
+    <AccordionsControlledContainer gap={gap} className="accordions-list">
       {getChildren}
-    </AccordionsContainer>
+    </AccordionsControlledContainer>
   );
 };
 
-export { Accordions };
+export { AccordionsControlled };
