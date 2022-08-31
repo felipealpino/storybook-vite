@@ -210,10 +210,10 @@ function colorGet(status, statusComplement, isTransparent) {
   return "" + colors["" + status + (isTransparent ? "Transparent" : "") + statusComplement];
 }
 
-var _templateObject;
-var AccordionContainer = styled$1__default.div(_templateObject || (_templateObject = _taggedTemplateLiteralLoose(["\n  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;\n  background: ", ";\n  min-height: 3rem;\n  width: inherit;\n  opacity: ", ";\n\n  .accordion-header {\n    padding: 0.7rem;\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    cursor: ", ";\n  }\n\n  .accordion-info-text {\n    > label {\n      cursor: inherit;\n    }\n  }\n\n  .accordion-icon {\n    transition: 0.2s ease-in-out;\n    transition-property: transform;\n    transform: ", ";\n    display: flex;\n\n    svg {\n      width: 25px;\n      height: 25px;\n    }\n  }\n\n  .accordion-content {\n    overflow: hidden;\n    background: #ffffff;\n    padding: ", ";\n    max-height: ", ";\n    transition-property: max-height, padding;\n    transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1);\n    transition-duration: 500ms;\n    .accordion-childrens {\n      transition-duration: 300ms;\n      transition-property: visibility, opacity;\n      opacity: ", ";\n      visibility: ", ";\n    }\n  }\n"])), function (_ref) {
+var _templateObject, _templateObject2, _templateObject3;
+var AccordionContainer = styled$1__default.div(_templateObject || (_templateObject = _taggedTemplateLiteralLoose(["\n\tbox-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);\n\tbackground: ", ";\n\tmin-height: 2rem;\n\twidth: inherit;\n\topacity: ", ";\n\n\t.accordion-header {\n\t\tpadding: 0 1rem;\n\t\tmin-height: inherit;\n\t\tdisplay: flex;\n\t\tjustify-content: space-between;\n\t\talign-items: center;\n\t\tcursor: ", ";\n\n\t\t.accordion-header-content {\n\t\t\tdisplay: flex;\n\t\t\tmargin: 1rem 0;\n\t\t\tgap: 1rem;\n\n\t\t\t.accordion-title {\n\t\t\t}\n\n\t\t\t.accordion-description {\n\t\t\t\ttext-overflow: ellipsis;\n\t\t\t\tdisplay: -webkit-box;\n\t\t\t\t-webkit-line-clamp: 2;\n\t\t\t\t-webkit-box-orient: vertical;\n\t\t\t\toverflow: hidden;\n\t\t\t\ttext-overflow: ellipsis;\n\t\t\t\twidth: fit-content;\n\t\t\t\tcolor: #777777;\n\t\t\t}\n\t\t}\n\n\t\t.accordion-icon {\n\t\t\ttransition: 0.2s ease-in-out;\n\t\t\ttransition-property: transform;\n\t\t\ttransform: ", ";\n\n\t\t\tsvg {\n\t\t\t\twidth: 20px;\n\t\t\t\theight: 20px;\n\t\t\t}\n\t\t}\n\t}\n\n\t.accordion-content {\n\t\tbackground: #ffffff;\n\t\ttransition: height, padding 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;\n\t\tpadding: ", ";\n\n\t\t", "\n\n\t\t.accordion-childrens {\n\t\t\ttransition-duration: 300ms;\n\t\t\ttransition-property: visibility, opacity;\n\t\t\topacity: ", ";\n\t\t\tvisibility: ", ";\n\t\t}\n\t}\n"])), function (_ref) {
   var status = _ref.status;
-  return colorGet(status, 400);
+  return status ? colorGet(status, 400) : 'transparent';
 }, function (_ref2) {
   var disabled = _ref2.disabled;
   return disabled ? '0.5' : '1';
@@ -222,13 +222,14 @@ var AccordionContainer = styled$1__default.div(_templateObject || (_templateObje
   return disabled ? 'not-allowed' : 'pointer';
 }, function (_ref4) {
   var isOpen = _ref4.isOpen;
-  return "rotate(" + (isOpen ? '-180deg' : '0deg') + ")";
+  return "rotate(" + (isOpen ? '0deg' : '-90deg') + ")";
 }, function (_ref5) {
   var isOpen = _ref5.isOpen;
-  return isOpen ? '1rem 0.7rem' : '0rem 0.7rem';
+  return isOpen ? '1rem' : '0 1rem';
 }, function (_ref6) {
-  var isOpen = _ref6.isOpen;
-  return isOpen ? '1000px' : '0px';
+  var isOpen = _ref6.isOpen,
+      childrenHeight = _ref6.childrenHeight;
+  return !isOpen ? styled$1.css(_templateObject2 || (_templateObject2 = _taggedTemplateLiteralLoose(["\n\t\t\t\t\t\theight: 0px;\n\t\t\t\t\t\toverflow: hidden;\n\t\t\t\t  "]))) : styled$1.css(_templateObject3 || (_templateObject3 = _taggedTemplateLiteralLoose(["\n\t\t\t\t\t\theight: ", ";\n\t\t\t\t  "])), childrenHeight + "px");
 }, function (_ref7) {
   var isOpen = _ref7.isOpen;
   return isOpen ? '1' : '0';
@@ -237,58 +238,74 @@ var AccordionContainer = styled$1__default.div(_templateObject || (_templateObje
   return isOpen ? 'visible' : 'hidden';
 });
 
-var _excluded = ["status", "handleSetCurrent"];
-
 var Accordion = function Accordion(_ref) {
-  var _ref$status = _ref.status,
-      status = _ref$status === void 0 ? 'basic' : _ref$status,
+  var descripton = _ref.descripton,
+      status = _ref.status,
       handleSetCurrent = _ref.handleSetCurrent,
-      props = _objectWithoutPropertiesLoose(_ref, _excluded);
+      disabled = _ref.disabled,
+      accordionCurent = _ref.accordionCurent,
+      index = _ref.index,
+      title = _ref.title,
+      children = _ref.children,
+      className = _ref.className;
 
   var _useState = React.useState(false),
       isOpen = _useState[0],
       setIsOpen = _useState[1];
 
+  var accordionContentRef = React.useRef(null);
   var handleOpen = React.useCallback(function () {
     setIsOpen(function (oldState) {
       return !oldState;
     });
-    handleSetCurrent && handleSetCurrent(Number(props.index));
-  }, [handleSetCurrent, props.index]);
+    handleSetCurrent && handleSetCurrent(Number(index));
+  }, [handleSetCurrent, index]);
   React.useEffect(function () {
-    if ((props.accordionCurent || props.accordionCurent == 0) && props.accordionCurent != props.index) {
+    if ((accordionCurent || accordionCurent === 0) && accordionCurent !== index) {
       setIsOpen(false);
     }
-  }, [props.accordionCurent, props.index]);
-  return React__default.createElement(AccordionContainer, Object.assign({}, props, {
+  }, [accordionCurent, index]);
+  var childrenContentHeight = React.useMemo(function () {
+    if (!accordionContentRef.current) return;
+    if (isOpen) return accordionContentRef.current.offsetHeight + 32;
+    return 0;
+  }, [isOpen]);
+  return React__default.createElement(AccordionContainer, {
+    childrenHeight: childrenContentHeight,
+    disabled: disabled,
     status: status,
     isOpen: isOpen,
-    className: "accordion-container " + (props.className || '')
-  }), React__default.createElement("div", {
+    className: "accordion-container " + (className || '')
+  }, React__default.createElement("div", {
     className: "accordion-header",
     onClick: function onClick() {
-      return !props.disabled && handleOpen();
+      return !disabled && handleOpen();
     }
   }, React__default.createElement("div", {
-    className: "accordion-info-text"
-  }, React__default.createElement("label", null, props.title)), React__default.createElement("div", {
+    className: "accordion-header-content"
+  }, React__default.createElement("div", {
+    className: "accordion-title"
+  }, React__default.createElement("p", null, title)), React__default.createElement("div", {
+    className: "accordion-description"
+  }, React__default.createElement("p", null, descripton))), React__default.createElement("div", {
     className: "accordion-icon"
   }, React__default.createElement(fi.FiChevronDown, {
     color: "#11182F"
-  }))), props.children && React__default.createElement("div", {
+  }))), children && React__default.createElement("div", {
     className: "accordion-content"
   }, React__default.createElement("div", {
+    ref: accordionContentRef,
     className: "accordion-childrens"
-  }, props.children)));
+  }, children)));
 };
 
 var _templateObject$1;
-var AccordionsContainer = styled$1__default.div(_templateObject$1 || (_templateObject$1 = _taggedTemplateLiteralLoose(["\n  display: flex;\n  flex-direction: column;\n  gap: ", ";\n"])), function (_ref) {
+var AccordionsControlledContainer = styled$1__default.div(_templateObject$1 || (_templateObject$1 = _taggedTemplateLiteralLoose(["\n  display: flex;\n  flex-direction: column;\n  gap: ", ";\n"])), function (_ref) {
   var gap = _ref.gap;
   return gap + "px";
 });
 
-var Accordions = function Accordions(_ref) {
+var AccordionsControlled = function AccordionsControlled(_ref) {
   var _ref$gap = _ref.gap,
       gap = _ref$gap === void 0 ? 0 : _ref$gap,
       children = _ref.children;
@@ -320,7 +337,7 @@ var Accordions = function Accordions(_ref) {
     });
     return newAccordions;
   }, [accordionCurent, handleSetCurrent, children]);
-  return React__default.createElement(AccordionsContainer, {
+  return React__default.createElement(AccordionsControlledContainer, {
     gap: gap,
     className: "accordions-list"
   }, getChildren);
@@ -408,11 +425,11 @@ var ButtonContainer = styled$1__default.button(_templateObject$4 || (_templateOb
   return !disabled && colorGet(status, 600);
 });
 
-var _excluded$1 = ["onClick"];
+var _excluded = ["onClick"];
 
 var Button = function Button(_ref) {
   var onClick = _ref.onClick,
-      props = _objectWithoutPropertiesLoose(_ref, _excluded$1);
+      props = _objectWithoutPropertiesLoose(_ref, _excluded);
 
   var handleOnClickButton = React.useCallback(function (event) {
     if (props.disabled) return;
@@ -463,11 +480,11 @@ var InputLabelContainer = styled$1__default.label(_templateObject$7 || (_templat
   return "" + colorGet(status, 500);
 }, colorGet('danger', 500));
 
-var _excluded$2 = ["className"];
+var _excluded$1 = ["className"];
 
 var InputLabel = function InputLabel(_ref) {
   var className = _ref.className,
-      props = _objectWithoutPropertiesLoose(_ref, _excluded$2);
+      props = _objectWithoutPropertiesLoose(_ref, _excluded$1);
 
   return React__default.createElement(InputLabelContainer, Object.assign({
     className: "input-label " + (className ? className : '')
@@ -476,12 +493,12 @@ var InputLabel = function InputLabel(_ref) {
   }, "*"));
 };
 
-var _excluded$3 = ["icon", "semiRounded"];
+var _excluded$2 = ["icon", "semiRounded"];
 
 var Checkbox = function Checkbox(_ref) {
   var Icon = _ref.icon,
       semiRounded = _ref.semiRounded,
-      props = _objectWithoutPropertiesLoose(_ref, _excluded$3);
+      props = _objectWithoutPropertiesLoose(_ref, _excluded$2);
 
   var _useState = React.useState(props.defaultChecked || false),
       isChecked = _useState[0],
@@ -524,12 +541,12 @@ var InputContainer = styled$1__default.div(_templateObject$8 || (_templateObject
   return colorGet(status, 600);
 }, colorGet("basic", 300));
 
-var _excluded$4 = ["icon", "onChange"];
+var _excluded$3 = ["icon", "onChange"];
 
 var Input = function Input(_ref) {
   var Icon = _ref.icon,
       onChange = _ref.onChange,
-      props = _objectWithoutPropertiesLoose(_ref, _excluded$4);
+      props = _objectWithoutPropertiesLoose(_ref, _excluded$3);
 
   var handleChange = React.useCallback(function (event) {
     if (props.mask && event.nativeEvent.inputType !== 'deleteContentBackward') {
@@ -557,9 +574,9 @@ var Input = function Input(_ref) {
   }));
 };
 
-var _templateObject$9, _templateObject2, _templateObject3, _templateObject4;
+var _templateObject$9, _templateObject2$1, _templateObject3$1, _templateObject4;
 var PaginationContainer = styled$1__default.div(_templateObject$9 || (_templateObject$9 = _taggedTemplateLiteralLoose(["\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  gap: 0.5rem;\n\n  .dots {\n    width: 2rem;\n    height: 2rem;\n    text-align: center;\n    line-height: 2rem;\n  }\n"])));
-var BallContainer = styled$1__default.div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteralLoose(["\n  cursor: ", ";\n  border: 1px solid ", ";\n  width: 2rem;\n  height: 2rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: ", ";\n  opacity: ", ";\n\n  ", "\n\n  transition: filter 0.3s;\n\n  ", "\n"])), function (_ref) {
+var BallContainer = styled$1__default.div(_templateObject2$1 || (_templateObject2$1 = _taggedTemplateLiteralLoose(["\n  cursor: ", ";\n  border: 1px solid ", ";\n  width: 2rem;\n  height: 2rem;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border-radius: ", ";\n  opacity: ", ";\n\n  ", "\n\n  transition: filter 0.3s;\n\n  ", "\n"])), function (_ref) {
   var disabled = _ref.disabled;
   return disabled ? "default" : "pointer";
 }, function (_ref2) {
@@ -574,7 +591,7 @@ var BallContainer = styled$1__default.div(_templateObject2 || (_templateObject2 
 }, function (_ref5) {
   var isCurrentPage = _ref5.isCurrentPage,
       status = _ref5.status;
-  return isCurrentPage && styled$1.css(_templateObject3 || (_templateObject3 = _taggedTemplateLiteralLoose(["\n      background-color: ", ";\n    "])), colorGet(status, 200));
+  return isCurrentPage && styled$1.css(_templateObject3$1 || (_templateObject3$1 = _taggedTemplateLiteralLoose(["\n      background-color: ", ";\n    "])), colorGet(status, 200));
 }, function (_ref6) {
   var disabled = _ref6.disabled,
       status = _ref6.status;
@@ -802,11 +819,11 @@ var SelectContainer = styled$1__default.div(_templateObject$a || (_templateObjec
   return props.optionsFillSpace ? 'none' : "2px solid " + colorGet(props.status, 500);
 });
 
-var _excluded$5 = ["handleOnChange"];
+var _excluded$4 = ["handleOnChange"];
 
 var Select = function Select(_ref) {
   var handleOnChange = _ref.handleOnChange,
-      props = _objectWithoutPropertiesLoose(_ref, _excluded$5);
+      props = _objectWithoutPropertiesLoose(_ref, _excluded$4);
 
   var _useState = React.useState(false),
       isOpen = _useState[0],
@@ -868,45 +885,37 @@ var Select = function Select(_ref) {
   }));
 };
 
-var _templateObject$b, _templateObject2$1;
-var SpinnerContainer = styled$1__default.div(_templateObject$b || (_templateObject$b = _taggedTemplateLiteralLoose(["\n  ", "\n"])), function (_ref) {
+var _templateObject$b, _templateObject2$2, _templateObject3$2, _templateObject4$1;
+var SpinnerContainer = styled$1__default.div(_templateObject$b || (_templateObject$b = _taggedTemplateLiteralLoose(["\n\t", "\n"])), function (_ref) {
   var fixed = _ref.fixed;
-  return fixed && " \n    position: fixed;\n    inset: 0;\n    background: " + colorGet('basic', 600, true) + ";\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    ";
+  return fixed && " \n    position: fixed;\n    inset: 0;\n    background: " + colorGet('basic', 300, true) + ";\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    ";
 });
-var SpinnerBall = styled$1__default.div(_templateObject2$1 || (_templateObject2$1 = _taggedTemplateLiteralLoose(["\n  /* 12sm 16md 24lg 32xl */\n  width: ", ";\n  height: ", ";\n  border: 4px solid ", ";\n  border-top: 4px solid ", ";\n  border-left: 4px solid ", ";\n  border-right: 4px solid ", ";\n  border-radius: 50%;\n  animation: spin 1s cubic-bezier(1, 1, 1, 1) infinite;\n  margin: auto;\n\n  @keyframes spin {\n    from {\n      transform: rotate(0deg);\n    }\n    to {\n      transform: rotate(360deg);\n    }\n  }\n"])), function (props) {
-  return props.size + "px";
-}, function (props) {
-  return props.size + "px";
-}, function (_ref2) {
-  var status = _ref2.status;
-  return colorGet(status, 600);
+var SpinnerBall = styled$1__default.div(_templateObject2$2 || (_templateObject2$2 = _taggedTemplateLiteralLoose(["\n\t", "\n\n\t", "\n\t\n\tborder-radius: 50%;\n\tanimation: spin 1s cubic-bezier(1, 1, 1, 1) infinite;\n\tmargin: ", ";\n\n\t@keyframes spin {\n\t\tfrom {\n\t\t\ttransform: rotate(0deg);\n\t\t}\n\t\tto {\n\t\t\ttransform: rotate(360deg);\n\t\t}\n\t}\n"])), function (_ref2) {
+  var size = _ref2.size;
+  return styled$1.css(_templateObject3$2 || (_templateObject3$2 = _taggedTemplateLiteralLoose(["\n\t\twidth: ", "px;\n\t\theight: ", "px;\n\t"])), size, size);
 }, function (_ref3) {
   var status = _ref3.status;
-  return colorGet(status, 300);
+  return styled$1.css(_templateObject4$1 || (_templateObject4$1 = _taggedTemplateLiteralLoose(["\n\t\tborder: 4px solid ", ";\n\t\tborder-top: 4px solid ", ";\n\t\tborder-left: 4px solid ", ";\n\t\tborder-right: 4px solid ", ";\n\t"])), colorGet(status, 600), colorGet(status, 400), colorGet(status, 400), colorGet(status, 400));
 }, function (_ref4) {
-  var status = _ref4.status;
-  return colorGet(status, 300);
-}, function (_ref5) {
-  var status = _ref5.status;
-  return colorGet(status, 300);
+  var fixed = _ref4.fixed;
+  return fixed ? 'unset' : 'auto';
 });
-
-var _excluded$6 = ["fixed", "size"];
 
 var Spinner = function Spinner(_ref) {
   var _ref$fixed = _ref.fixed,
       fixed = _ref$fixed === void 0 ? true : _ref$fixed,
       _ref$size = _ref.size,
       size = _ref$size === void 0 ? 30 : _ref$size,
-      props = _objectWithoutPropertiesLoose(_ref, _excluded$6);
-
-  return React__default.createElement(SpinnerContainer, Object.assign({
-    className: "spinner-container " + (props.className || ''),
+      className = _ref.className,
+      status = _ref.status;
+  return React__default.createElement(SpinnerContainer, {
+    className: "spinner-container " + (className || ''),
     fixed: fixed
-  }, props), React__default.createElement(SpinnerBall, {
+  }, React__default.createElement(SpinnerBall, {
     className: "spinner-ball",
-    status: props.status,
-    size: size
+    status: status,
+    size: size,
+    fixed: fixed
   }));
 };
 
@@ -977,11 +986,11 @@ var SwipeToggleContainer = styled$1__default.label(_templateObject$c || (_templa
   return statusCheck ? "3px" : "unset";
 });
 
-var _excluded$7 = ["handleOnChange"];
+var _excluded$5 = ["handleOnChange"];
 
 var SwipeToggle = function SwipeToggle(_ref) {
   var handleOnChange = _ref.handleOnChange,
-      props = _objectWithoutPropertiesLoose(_ref, _excluded$7);
+      props = _objectWithoutPropertiesLoose(_ref, _excluded$5);
 
   var _useState = React.useState(false),
       statusCheck = _useState[0],
@@ -1025,7 +1034,7 @@ var TabContainer = styled$1__default.div(_templateObject$d || (_templateObject$d
   return iconposition === 'top' || iconposition === 'bottom' ? 'column' : 'row';
 });
 
-var _excluded$8 = ["className", "iconposition", "icon", "clickTabCallback", "handleOnChangeTab"];
+var _excluded$6 = ["className", "iconposition", "icon", "clickTabCallback", "handleOnChangeTab"];
 
 var Tab = function Tab(_ref) {
   var className = _ref.className,
@@ -1034,7 +1043,7 @@ var Tab = function Tab(_ref) {
       Icon = _ref.icon,
       clickTabCallback = _ref.clickTabCallback,
       handleOnChangeTab = _ref.handleOnChangeTab,
-      props = _objectWithoutPropertiesLoose(_ref, _excluded$8);
+      props = _objectWithoutPropertiesLoose(_ref, _excluded$6);
 
   var handleOnClick = React.useCallback(function () {
     handleOnChangeTab(props.index);
@@ -1069,11 +1078,11 @@ var TabsContainer = styled$1__default.div(_templateObject$e || (_templateObject$
   return colorGet(status, 600);
 });
 
-var _excluded$9 = ["className"];
+var _excluded$7 = ["className"];
 
 var Tabs = function Tabs(_ref) {
   var className = _ref.className,
-      props = _objectWithoutPropertiesLoose(_ref, _excluded$9);
+      props = _objectWithoutPropertiesLoose(_ref, _excluded$7);
 
   var _useState = React.useState(0),
       selectedTab = _useState[0],
@@ -1155,12 +1164,12 @@ var ContainerTextArea = styled$1__default.div(_templateObject$f || (_templateObj
   return resizable;
 }, colorGet('danger', 500));
 
-var _excluded$a = ["resizable"];
+var _excluded$8 = ["resizable"];
 
 var TextArea = function TextArea(_ref) {
   var _ref$resizable = _ref.resizable,
       resizable = _ref$resizable === void 0 ? 'both' : _ref$resizable,
-      props = _objectWithoutPropertiesLoose(_ref, _excluded$a);
+      props = _objectWithoutPropertiesLoose(_ref, _excluded$8);
 
   return React__default.createElement(ContainerTextArea, {
     className: "textareaform-container " + (props.className || ''),
@@ -1253,7 +1262,7 @@ var TooltipContainer = styled$1__default.div(_templateObject$g || (_templateObje
   return position === 'top' && "\n        bottom: -10px;\n        border-color: " + colorGet(status, 500) + " transparent transparent  transparent;\n    ";
 });
 
-var _excluded$b = ["clickable", "status", "position"];
+var _excluded$9 = ["clickable", "status", "position"];
 
 var Tooltip = function Tooltip(_ref) {
   var _ref$clickable = _ref.clickable,
@@ -1262,7 +1271,7 @@ var Tooltip = function Tooltip(_ref) {
       status = _ref$status === void 0 ? 'danger' : _ref$status,
       _ref$position = _ref.position,
       position = _ref$position === void 0 ? 'bottom' : _ref$position,
-      props = _objectWithoutPropertiesLoose(_ref, _excluded$b);
+      props = _objectWithoutPropertiesLoose(_ref, _excluded$9);
 
   var _useState = React.useState(false),
       show = _useState[0],
@@ -1322,7 +1331,7 @@ var ToastCardContainer = styled$1__default.div(_templateObject$h || (_templateOb
   return position === "bottom-left" && " \n    bottom: " + (myIndexInArray * 100 + 10) + "px;\n    left: 12px;\n    transition: transform " + timeToUnmount + "ms ease-in-out;\n    transform: translateX(" + (shouldShow ? "0" : "-200%") + ");\n  ";
 });
 
-var _excluded$c = ["duration", "position", "handleOnClick"];
+var _excluded$a = ["duration", "position", "handleOnClick"];
 
 var ToastCard = function ToastCard(_ref) {
   var _ref$duration = _ref.duration,
@@ -1330,7 +1339,7 @@ var ToastCard = function ToastCard(_ref) {
       _ref$position = _ref.position,
       position = _ref$position === void 0 ? "top-right" : _ref$position,
       handleOnClick = _ref.handleOnClick,
-      props = _objectWithoutPropertiesLoose(_ref, _excluded$c);
+      props = _objectWithoutPropertiesLoose(_ref, _excluded$a);
 
   var _useToast = useToast(),
       toastListCurrent = _useToast.toastListCurrent;
@@ -1777,7 +1786,7 @@ var ThemeProvider$1 = function ThemeProvider$1(_ref) {
 };
 
 exports.Accordion = Accordion;
-exports.Accordions = Accordions;
+exports.AccordionsControlled = AccordionsControlled;
 exports.Avatar = Avatar;
 exports.BaseStyles = BaseStyles;
 exports.BaseTheme = theme;

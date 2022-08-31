@@ -1,5 +1,5 @@
-export * from "./Accordion";
-export * from "./Accordion/Accordions";
+export * from "./Accordions/Accordion";
+export * from "./Accordions/AccordionsControlled";
 export * from "./Avatar";
 export * from "./BaseStyles";
 export * from "./Button";
