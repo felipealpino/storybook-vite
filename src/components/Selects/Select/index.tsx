@@ -1,86 +1,79 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { Fragment, useCallback, useMemo, useState } from 'react';
 
-import { SelectContainer } from "./styles";
+import { SelectContainer, SelectDropDownBody } from './styles';
 
-import { ISelectDefaultProps } from "../../../components/Selects/interfaces/ISelectDefaultProps";
-import { ISelectOptions } from "../../../components/Selects/interfaces/ISelectOptions";
+import { ISelectDefaultProps } from '../../../components/Selects/interfaces/ISelectDefaultProps';
+import { ISelectOptions } from '../../../components/Selects/interfaces/ISelectOptions';
 
-import InputsErrorMessage from "../../../shared/components/InputsErrorMessage/inputsErrorMessage";
-import { FiChevronRight } from "react-icons/fi";
-import InputLabel from "../../../shared/components/InputLabel";
+import InputsErrorMessage from '../../../shared/components/InputsErrorMessage/inputsErrorMessage';
+import { FiChevronRight } from 'react-icons/fi';
+import InputLabel from '../../../shared/components/InputLabel';
 
 const Select: React.FC<ISelectDefaultProps> = ({
-  handleOnChange,
-  ...props
+	handleOnChange,
+	initialOption,
+	disabled,
+	placeholder,
+	label,
+	status,
+	required,
+	name,
+	isBodyContentAbsolute = true,
+	className,
+	options,
+	error,
+	noOptionsMessage = 'Nenhuma opção disponível...',
 }) => {
-  const [isOpen, setOpen] = useState<boolean>(false);
-  const [selectedItem, setSelectedItem] = useState<ISelectOptions | undefined>(
-    props.initialOption
-  );
+	const [isOpen, setOpen] = useState<boolean>(false);
+	const [selectedItem, setSelectedItem] = useState<ISelectOptions | undefined>(initialOption);
 
-  const toggleSelect = useCallback(() => {
-    !props.disabled && setOpen((oldState) => !oldState);
-  }, [props.disabled]);
+	const toggleSelect = useCallback(() => {
+		!disabled && setOpen((oldState) => !oldState);
+	}, [disabled]);
 
-  const handleOptionClick = useCallback(
-    (option: ISelectOptions) => {
-      handleOnChange && handleOnChange(option);
-      setSelectedItem(option);
-      setOpen((oldState) => !oldState);
-    },
-    [handleOnChange]
-  );
+	const handleOptionClick = useCallback(
+		(option: ISelectOptions) => {
+			handleOnChange && handleOnChange(option);
+			setSelectedItem(option);
+			setOpen((oldState) => !oldState);
+		},
+		[handleOnChange]
+	);
 
-  const headerText = useMemo(() => {
-    if (selectedItem) return selectedItem.name;
-    if (props.placeholder) return props.placeholder;
-    return "Selecione uma Opção";
-  }, [props.placeholder, selectedItem]);
+	const headerText = useMemo(() => {
+		if (selectedItem) return selectedItem.name;
+		if (placeholder) return placeholder;
+		return 'Selecione uma Opção';
+	}, [placeholder, selectedItem]);
 
-  return (
-    <SelectContainer
-      className={`select-container ${props.className ? props.className : ""}`}
-      status={props.status}
-      isOpen={isOpen}
-      disabled={props.disabled}
-      optionsFillSpace={props.optionsFillSpace}
-    >
-      {props.label && (
-        <InputLabel
-          label={props.label}
-          status={props.status}
-          isRequired={props.required}
-        />
-      )}
+	return (
+		<Fragment>
+			{label && <InputLabel label={label} status={status} isRequired={required} />}
 
-      <div className="select-dropdown">
-        <div className="select-dropdown-header" onClick={toggleSelect}>
-          {headerText}
-          <FiChevronRight color="#222b45" />
-        </div>
-        {isOpen &&
-          (props.options && props.options.length > 0 ? (
-            <div className={"select-dropdown-body"}>
-              {props.options.map((option, index) => (
-                <div
-                  key={index}
-                  className="select-dropdown-item"
-                  onClick={() => handleOptionClick(option)}
-                  id={props.name}
-                >
-                  {option.name}
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className={"select-dropdown-body"}>
-              Nenhuma opção disponível ..
-            </div>
-          ))}
-      </div>
-      {props.error && <InputsErrorMessage error={props.error} />}
-    </SelectContainer>
-  );
+			<SelectContainer className={`select-container ${className ? className : ''}`} status={status} isOpen={isOpen} disabled={disabled}>
+				<div className="select-dropdown-header" onClick={toggleSelect}>
+					{headerText}
+					<FiChevronRight color="#222b45" />
+				</div>
+
+				{isOpen && (
+					<SelectDropDownBody className="select-dropdown-body" isBodyContentAbsolute={isBodyContentAbsolute}>
+						{options && options.length > 0 ? (
+							options.map((option, index) => (
+								<li key={index} className="select-dropdown-item" onClick={() => handleOptionClick(option)} id={name}>
+									{option.name}
+								</li>
+							))
+						) : (
+							<li className="select-dropdown-item">{noOptionsMessage}</li>
+						)}
+					</SelectDropDownBody>
+				)}
+			</SelectContainer>
+
+			{error && <InputsErrorMessage error={error} />}
+		</Fragment>
+	);
 };
 
 export { Select };
