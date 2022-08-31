@@ -11,6 +11,7 @@ export const SelectContainer = styled.div<ISelectProps>`
 	--selectHeigth: 40px;
 	--borderRadius: 4px;
 	--bgColor: #ffffff;
+	--horizontalPadding: 14px;
 
 	background-color: var(--bgColor);
 	opacity: ${({ disabled }) => (disabled ? '0.5' : '1')};
@@ -25,7 +26,7 @@ export const SelectContainer = styled.div<ISelectProps>`
 		border: 1px solid ${({ status }) => `${colorGet(status, 500)}`};
 		justify-content: space-between;
 		align-items: center;
-		padding: 15px;
+		padding: 0 var(--horizontalPadding);
 		display: flex;
 
 		svg {
@@ -46,7 +47,6 @@ export const SelectDropDownBody = styled.ul<Pick<ISelectDefaultProps, 'isBodyCon
 	animation: selectBodyAnimation 300ms;
 	background-color: inherit;
 	width: inherit;
-	padding: 5px;
 	z-index: 1;
 
 	li {
@@ -63,7 +63,7 @@ export const SelectDropDownBody = styled.ul<Pick<ISelectDefaultProps, 'isBodyCon
 	}
 
 	.select-dropdown-item {
-		padding: 10px;
+		padding: 10px var(--horizontalPadding);
 	}
 
 	.select-dropdown-item:hover {
