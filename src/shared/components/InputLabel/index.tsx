@@ -2,20 +2,20 @@ import React from 'react';
 import { ElementStatus } from '../../theme/colors';
 import { InputLabelContainer } from './styles';
 
-export interface InputLabel {
-  label: string;
-  isRequired?: boolean;
-  className?: string;
-  status?: ElementStatus;
+export interface IInputLabel {
+	label: string;
+	isRequired?: boolean;
+	className?: string;
+	status?: ElementStatus;
 }
 
-const InputLabel: React.FC<InputLabel> = ({ className, ...props }) => {
-  return (
-    <InputLabelContainer className={`input-label ${className ? className : ''}`} {...props}>
-      {props.label}
-      {props.isRequired && <span className="required-star">*</span>}
-    </InputLabelContainer>
-  );
+const InputLabel: React.FC<IInputLabel> = ({ className, label, status, isRequired }) => {
+	return (
+		<InputLabelContainer className={`input-label ${className ? className : ''}`} status={status}>
+			{label}
+			{isRequired && <span className="required-star">*</span>}
+		</InputLabelContainer>
+	);
 };
 
 export default InputLabel;
