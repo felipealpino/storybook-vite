@@ -475,30 +475,30 @@ var CheckboxContainer = styled$1__default.div(_templateObject$6 || (_templateObj
 });
 
 var _templateObject$7;
-var InputLabelContainer = styled$1__default.label(_templateObject$7 || (_templateObject$7 = _taggedTemplateLiteralLoose(["\n  white-space: nowrap;\n  color: ", ";\n  text-transform: unset;\n  margin: 4px 0px;\n  font-size: 14px;\n  font-weight: 700;\n  user-select: none;\n  pointer-events: none;\n  display: flex;\n\n  .required-star {\n    color: ", ";\n    font-size: 14px;\n    margin-left: 3px;\n  }\n"])), function (_ref) {
+var InputLabelContainer = styled$1__default.label(_templateObject$7 || (_templateObject$7 = _taggedTemplateLiteralLoose(["\n\twhite-space: nowrap;\n\tcolor: ", ";\n\ttext-transform: unset;\n\tmargin: 4px 0px;\n\tfont-size: 14px;\n\tfont-weight: 700;\n\tuser-select: none;\n\tpointer-events: none;\n\tdisplay: flex;\n\n\t.required-star {\n\t\tcolor: ", ";\n\t\tfont-size: 14px;\n\t\tmargin-left: 3px;\n\t}\n"])), function (_ref) {
   var status = _ref.status;
   return "" + colorGet(status, 500);
 }, colorGet('danger', 500));
 
-var _excluded$1 = ["className"];
-
 var InputLabel = function InputLabel(_ref) {
   var className = _ref.className,
-      props = _objectWithoutPropertiesLoose(_ref, _excluded$1);
-
-  return React__default.createElement(InputLabelContainer, Object.assign({
-    className: "input-label " + (className ? className : '')
-  }, props), props.label, props.isRequired && React__default.createElement("span", {
+      label = _ref.label,
+      status = _ref.status,
+      isRequired = _ref.isRequired;
+  return React__default.createElement(InputLabelContainer, {
+    className: "input-label " + (className ? className : ''),
+    status: status
+  }, label, isRequired && React__default.createElement("span", {
     className: "required-star"
   }, "*"));
 };
 
-var _excluded$2 = ["icon", "semiRounded"];
+var _excluded$1 = ["icon", "semiRounded"];
 
 var Checkbox = function Checkbox(_ref) {
   var Icon = _ref.icon,
       semiRounded = _ref.semiRounded,
-      props = _objectWithoutPropertiesLoose(_ref, _excluded$2);
+      props = _objectWithoutPropertiesLoose(_ref, _excluded$1);
 
   var _useState = React.useState(props.defaultChecked || false),
       isChecked = _useState[0],
@@ -541,12 +541,12 @@ var InputContainer = styled$1__default.div(_templateObject$8 || (_templateObject
   return colorGet(status, 600);
 }, colorGet("basic", 300));
 
-var _excluded$3 = ["icon", "onChange"];
+var _excluded$2 = ["icon", "onChange"];
 
 var Input = function Input(_ref) {
   var Icon = _ref.icon,
       onChange = _ref.onChange,
-      props = _objectWithoutPropertiesLoose(_ref, _excluded$3);
+      props = _objectWithoutPropertiesLoose(_ref, _excluded$2);
 
   var handleChange = React.useCallback(function (event) {
     if (props.mask && event.nativeEvent.inputType !== 'deleteContentBackward') {
@@ -795,49 +795,55 @@ var Pagination = function Pagination(_ref) {
   }, React__default.createElement(fi.FiChevronRight, null)));
 };
 
-var _templateObject$a;
-var SelectContainer = styled$1__default.div(_templateObject$a || (_templateObject$a = _taggedTemplateLiteralLoose(["\n  font-size: 15px;\n\n  .select-dropdown {\n    opacity: ", ";\n    border: 2px solid ", ";\n    border-radius: 4px;\n    position: relative;\n    width: 100%;\n  }\n\n  .select-dropdown-header {\n    padding: 15px;\n    cursor: ", ";\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n    height: 40px;\n    background: ", ";\n\n    svg {\n      margin-left: 10px;\n      width: 25px;\n      height: 25px;\n      transition: 0.2s ease-in-out;\n      transform: rotate(", ");\n    }\n  }\n\n  .select-dropdown-body {\n    padding: 5px;\n    background: ", ";\n    position: ", ";\n    top: 42px;\n    width: inherit;\n    border-bottom-right-radius: 4px;\n    border-bottom-left-radius: 4px;\n    z-index: 1;\n    border-top: ", ";\n    border-left: ", ";\n    border-right: ", ";\n    border-bottom: ", ";\n  }\n\n  .select-dropdown-item {\n    padding: 10px;\n  }\n\n  .select-dropdown-item:hover {\n    cursor: pointer;\n  }\n"])), function (props) {
-  return props.disabled ? '0.5' : '1';
-}, function (_ref) {
-  var status = _ref.status;
+var _templateObject$a, _templateObject2$2;
+var SelectContainer = styled$1__default.div(_templateObject$a || (_templateObject$a = _taggedTemplateLiteralLoose(["\n\t--selectHeigth: 40px;\n\t--borderRadius: 4px;\n\t--bgColor: #ffffff;\n\t--horizontalPadding: 14px;\n\n\tbackground-color: var(--bgColor);\n\topacity: ", ";\n\tposition: relative;\n\tfont-size: 15px;\n\twidth: 100%;\n\n\t.select-dropdown-header {\n\t\tborder-radius: var(--borderRadius);\n\t\theight: var(--selectHeigth);\n\t\tcursor: ", ";\n\t\tborder: 1px solid ", ";\n\t\tjustify-content: space-between;\n\t\talign-items: center;\n\t\tpadding: 0 var(--horizontalPadding);\n\t\tdisplay: flex;\n\n\t\tsvg {\n\t\t\ttransform: rotate(", ");\n\t\t\tmargin-left: 10px;\n\t\t\twidth: 20px;\n\t\t\theight: 20px;\n\t\t\ttransition: 0.2s ease-in-out;\n\t\t}\n\t}\n"])), function (_ref) {
+  var disabled = _ref.disabled;
+  return disabled ? '0.5' : '1';
+}, function (_ref2) {
+  var disabled = _ref2.disabled;
+  return disabled ? 'not-allowed' : 'pointer';
+}, function (_ref3) {
+  var status = _ref3.status;
   return "" + colorGet(status, 500);
-}, function (props) {
-  return props.disabled ? 'not-allowed' : 'pointer';
-}, colorGet('basic', 200), function (_ref2) {
-  var isOpen = _ref2.isOpen;
+}, function (_ref4) {
+  var isOpen = _ref4.isOpen;
   return isOpen ? '90deg' : '0deg';
-}, colorGet('basic', 200), function (_ref3) {
-  var optionsFillSpace = _ref3.optionsFillSpace;
-  return optionsFillSpace ? 'initial' : 'absolute';
-}, function (props) {
-  return !props.optionsFillSpace ? 'none' : "2px solid " + colorGet(props.status, 500);
-}, function (props) {
-  return props.optionsFillSpace ? 'none' : "2px solid " + colorGet(props.status, 500);
-}, function (props) {
-  return props.optionsFillSpace ? 'none' : "2px solid " + colorGet(props.status, 500);
-}, function (props) {
-  return props.optionsFillSpace ? 'none' : "2px solid " + colorGet(props.status, 500);
 });
-
-var _excluded$4 = ["handleOnChange"];
+var SelectDropDownBody = styled$1__default.ul(_templateObject2$2 || (_templateObject2$2 = _taggedTemplateLiteralLoose(["\n\ttop: calc(var(--selectHeigth));\n\tborder-radius: var(--borderRadius);\n\tposition: ", ";\n\tbox-shadow: rgb(0 0 0 / 20%) 0px 5px 5px -3px, rgb(0 0 0 / 14%) 0px 8px 10px 1px, rgb(0 0 0 / 12%) 0px 3px 14px 2px;\n\tanimation: selectBodyAnimation 300ms;\n\tbackground-color: inherit;\n\twidth: inherit;\n\tz-index: 1;\n\n\tli {\n\t\tlist-style-type: none;\n\t}\n\n\t@keyframes selectBodyAnimation {\n\t\tfrom {\n\t\t\topacity: 0;\n\t\t}\n\t\tto {\n\t\t\topacity: 1;\n\t\t}\n\t}\n\n\t.select-dropdown-item {\n\t\tpadding: 10px var(--horizontalPadding);\n\t}\n\n\t.select-dropdown-item:hover {\n\t\tcursor: pointer;\n\t}\n"])), function (_ref5) {
+  var isBodyContentAbsolute = _ref5.isBodyContentAbsolute;
+  return isBodyContentAbsolute ? 'absolute' : 'initial';
+});
 
 var Select = function Select(_ref) {
   var handleOnChange = _ref.handleOnChange,
-      props = _objectWithoutPropertiesLoose(_ref, _excluded$4);
+      initialOption = _ref.initialOption,
+      disabled = _ref.disabled,
+      placeholder = _ref.placeholder,
+      label = _ref.label,
+      status = _ref.status,
+      required = _ref.required,
+      name = _ref.name,
+      _ref$isBodyContentAbs = _ref.isBodyContentAbsolute,
+      isBodyContentAbsolute = _ref$isBodyContentAbs === void 0 ? true : _ref$isBodyContentAbs,
+      className = _ref.className,
+      options = _ref.options,
+      error = _ref.error,
+      _ref$noOptionsMessage = _ref.noOptionsMessage,
+      noOptionsMessage = _ref$noOptionsMessage === void 0 ? 'Nenhuma opção disponível...' : _ref$noOptionsMessage;
 
   var _useState = React.useState(false),
       isOpen = _useState[0],
       setOpen = _useState[1];
 
-  var _useState2 = React.useState(props.initialOption),
+  var _useState2 = React.useState(initialOption),
       selectedItem = _useState2[0],
       setSelectedItem = _useState2[1];
 
   var toggleSelect = React.useCallback(function () {
-    !props.disabled && setOpen(function (oldState) {
+    !disabled && setOpen(function (oldState) {
       return !oldState;
     });
-  }, [props.disabled]);
+  }, [disabled]);
   var handleOptionClick = React.useCallback(function (option) {
     handleOnChange && handleOnChange(option);
     setSelectedItem(option);
@@ -847,50 +853,48 @@ var Select = function Select(_ref) {
   }, [handleOnChange]);
   var headerText = React.useMemo(function () {
     if (selectedItem) return selectedItem.name;
-    if (props.placeholder) return props.placeholder;
-    return "Selecione uma Opção";
-  }, [props.placeholder, selectedItem]);
-  return React__default.createElement(SelectContainer, {
-    className: "select-container " + (props.className ? props.className : ""),
-    status: props.status,
+    if (placeholder) return placeholder;
+    return 'Selecione uma Opção';
+  }, [placeholder, selectedItem]);
+  return React__default.createElement(React.Fragment, null, label && React__default.createElement(InputLabel, {
+    label: label,
+    status: status,
+    isRequired: required
+  }), React__default.createElement(SelectContainer, {
+    className: "select-container " + (className ? className : ''),
+    status: status,
     isOpen: isOpen,
-    disabled: props.disabled,
-    optionsFillSpace: props.optionsFillSpace
-  }, props.label && React__default.createElement(InputLabel, {
-    label: props.label,
-    status: props.status,
-    isRequired: props.required
-  }), React__default.createElement("div", {
-    className: "select-dropdown"
+    disabled: disabled
   }, React__default.createElement("div", {
     className: "select-dropdown-header",
     onClick: toggleSelect
   }, headerText, React__default.createElement(fi.FiChevronRight, {
     color: "#222b45"
-  })), isOpen && (props.options && props.options.length > 0 ? React__default.createElement("div", {
-    className: "select-dropdown-body"
-  }, props.options.map(function (option, index) {
-    return React__default.createElement("div", {
+  })), isOpen && React__default.createElement(SelectDropDownBody, {
+    className: "select-dropdown-body",
+    isBodyContentAbsolute: isBodyContentAbsolute
+  }, options && options.length > 0 ? options.map(function (option, index) {
+    return React__default.createElement("li", {
       key: index,
       className: "select-dropdown-item",
       onClick: function onClick() {
         return handleOptionClick(option);
       },
-      id: props.name
+      id: name
     }, option.name);
-  })) : React__default.createElement("div", {
-    className: "select-dropdown-body"
-  }, "Nenhuma op\xE7\xE3o dispon\xEDvel .."))), props.error && React__default.createElement(InputsErrorMessage, {
-    error: props.error
+  }) : React__default.createElement("li", {
+    className: "select-dropdown-item"
+  }, noOptionsMessage))), error && React__default.createElement(InputsErrorMessage, {
+    error: error
   }));
 };
 
-var _templateObject$b, _templateObject2$2, _templateObject3$2, _templateObject4$1;
+var _templateObject$b, _templateObject2$3, _templateObject3$2, _templateObject4$1;
 var SpinnerContainer = styled$1__default.div(_templateObject$b || (_templateObject$b = _taggedTemplateLiteralLoose(["\n\t", "\n"])), function (_ref) {
   var fixed = _ref.fixed;
   return fixed && " \n    position: fixed;\n    inset: 0;\n    background: " + colorGet('basic', 300, true) + ";\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    ";
 });
-var SpinnerBall = styled$1__default.div(_templateObject2$2 || (_templateObject2$2 = _taggedTemplateLiteralLoose(["\n\t", "\n\n\t", "\n\t\n\tborder-radius: 50%;\n\tanimation: spin 1s cubic-bezier(1, 1, 1, 1) infinite;\n\tmargin: ", ";\n\n\t@keyframes spin {\n\t\tfrom {\n\t\t\ttransform: rotate(0deg);\n\t\t}\n\t\tto {\n\t\t\ttransform: rotate(360deg);\n\t\t}\n\t}\n"])), function (_ref2) {
+var SpinnerBall = styled$1__default.div(_templateObject2$3 || (_templateObject2$3 = _taggedTemplateLiteralLoose(["\n\t", "\n\n\t", "\n\t\n\tborder-radius: 50%;\n\tanimation: spin 1s cubic-bezier(1, 1, 1, 1) infinite;\n\tmargin: ", ";\n\n\t@keyframes spin {\n\t\tfrom {\n\t\t\ttransform: rotate(0deg);\n\t\t}\n\t\tto {\n\t\t\ttransform: rotate(360deg);\n\t\t}\n\t}\n"])), function (_ref2) {
   var size = _ref2.size;
   return styled$1.css(_templateObject3$2 || (_templateObject3$2 = _taggedTemplateLiteralLoose(["\n\t\twidth: ", "px;\n\t\theight: ", "px;\n\t"])), size, size);
 }, function (_ref3) {
@@ -986,11 +990,11 @@ var SwipeToggleContainer = styled$1__default.label(_templateObject$c || (_templa
   return statusCheck ? "3px" : "unset";
 });
 
-var _excluded$5 = ["handleOnChange"];
+var _excluded$3 = ["handleOnChange"];
 
 var SwipeToggle = function SwipeToggle(_ref) {
   var handleOnChange = _ref.handleOnChange,
-      props = _objectWithoutPropertiesLoose(_ref, _excluded$5);
+      props = _objectWithoutPropertiesLoose(_ref, _excluded$3);
 
   var _useState = React.useState(false),
       statusCheck = _useState[0],
@@ -1034,7 +1038,7 @@ var TabContainer = styled$1__default.div(_templateObject$d || (_templateObject$d
   return iconposition === 'top' || iconposition === 'bottom' ? 'column' : 'row';
 });
 
-var _excluded$6 = ["className", "iconposition", "icon", "clickTabCallback", "handleOnChangeTab"];
+var _excluded$4 = ["className", "iconposition", "icon", "clickTabCallback", "handleOnChangeTab"];
 
 var Tab = function Tab(_ref) {
   var className = _ref.className,
@@ -1043,7 +1047,7 @@ var Tab = function Tab(_ref) {
       Icon = _ref.icon,
       clickTabCallback = _ref.clickTabCallback,
       handleOnChangeTab = _ref.handleOnChangeTab,
-      props = _objectWithoutPropertiesLoose(_ref, _excluded$6);
+      props = _objectWithoutPropertiesLoose(_ref, _excluded$4);
 
   var handleOnClick = React.useCallback(function () {
     handleOnChangeTab(props.index);
@@ -1078,11 +1082,11 @@ var TabsContainer = styled$1__default.div(_templateObject$e || (_templateObject$
   return colorGet(status, 600);
 });
 
-var _excluded$7 = ["className"];
+var _excluded$5 = ["className"];
 
 var Tabs = function Tabs(_ref) {
   var className = _ref.className,
-      props = _objectWithoutPropertiesLoose(_ref, _excluded$7);
+      props = _objectWithoutPropertiesLoose(_ref, _excluded$5);
 
   var _useState = React.useState(0),
       selectedTab = _useState[0],
@@ -1164,12 +1168,12 @@ var ContainerTextArea = styled$1__default.div(_templateObject$f || (_templateObj
   return resizable;
 }, colorGet('danger', 500));
 
-var _excluded$8 = ["resizable"];
+var _excluded$6 = ["resizable"];
 
 var TextArea = function TextArea(_ref) {
   var _ref$resizable = _ref.resizable,
       resizable = _ref$resizable === void 0 ? 'both' : _ref$resizable,
-      props = _objectWithoutPropertiesLoose(_ref, _excluded$8);
+      props = _objectWithoutPropertiesLoose(_ref, _excluded$6);
 
   return React__default.createElement(ContainerTextArea, {
     className: "textareaform-container " + (props.className || ''),
@@ -1262,7 +1266,7 @@ var TooltipContainer = styled$1__default.div(_templateObject$g || (_templateObje
   return position === 'top' && "\n        bottom: -10px;\n        border-color: " + colorGet(status, 500) + " transparent transparent  transparent;\n    ";
 });
 
-var _excluded$9 = ["clickable", "status", "position"];
+var _excluded$7 = ["clickable", "status", "position"];
 
 var Tooltip = function Tooltip(_ref) {
   var _ref$clickable = _ref.clickable,
@@ -1271,7 +1275,7 @@ var Tooltip = function Tooltip(_ref) {
       status = _ref$status === void 0 ? 'danger' : _ref$status,
       _ref$position = _ref.position,
       position = _ref$position === void 0 ? 'bottom' : _ref$position,
-      props = _objectWithoutPropertiesLoose(_ref, _excluded$9);
+      props = _objectWithoutPropertiesLoose(_ref, _excluded$7);
 
   var _useState = React.useState(false),
       show = _useState[0],
@@ -1331,7 +1335,7 @@ var ToastCardContainer = styled$1__default.div(_templateObject$h || (_templateOb
   return position === "bottom-left" && " \n    bottom: " + (myIndexInArray * 100 + 10) + "px;\n    left: 12px;\n    transition: transform " + timeToUnmount + "ms ease-in-out;\n    transform: translateX(" + (shouldShow ? "0" : "-200%") + ");\n  ";
 });
 
-var _excluded$a = ["duration", "position", "handleOnClick"];
+var _excluded$8 = ["duration", "position", "handleOnClick"];
 
 var ToastCard = function ToastCard(_ref) {
   var _ref$duration = _ref.duration,
@@ -1339,7 +1343,7 @@ var ToastCard = function ToastCard(_ref) {
       _ref$position = _ref.position,
       position = _ref$position === void 0 ? "top-right" : _ref$position,
       handleOnClick = _ref.handleOnClick,
-      props = _objectWithoutPropertiesLoose(_ref, _excluded$a);
+      props = _objectWithoutPropertiesLoose(_ref, _excluded$8);
 
   var _useToast = useToast(),
       toastListCurrent = _useToast.toastListCurrent;
