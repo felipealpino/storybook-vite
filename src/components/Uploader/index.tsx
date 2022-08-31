@@ -16,7 +16,7 @@ export interface IUploader {
   width?: number;
 }
 
-type IUploaderResponde = {
+export type IUploaderResponde = {
   file: File;
   isValid: boolean;
   invalidReason: "invalid file type" | "invalid file size" | null;
