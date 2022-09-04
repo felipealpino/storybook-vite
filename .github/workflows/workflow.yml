@@ -47,7 +47,7 @@ jobs:
       tags:
         description: "Test scenario tags"
 jobs:
-  Explore-GitHub-Actions:
+  run:
     runs-on: ubuntu-latest
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
