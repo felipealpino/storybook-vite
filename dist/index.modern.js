@@ -753,13 +753,13 @@ var Pagination = function Pagination(_ref) {
     return toRender;
   }, [currentPage, disabled, fisrtPageStartsIn, lastPage, paginationCallback, rounded, status]);
   var handleClickPreviousPage = useCallback(function () {
-    if (isInFirstPage) return;
+    if (isInFirstPage || disabled) return;
     paginationCallback(currentPage - 1);
-  }, [isInFirstPage, paginationCallback, currentPage]);
+  }, [isInFirstPage, disabled, paginationCallback, currentPage]);
   var handleClickNextPage = useCallback(function () {
-    if (isInLastPage) return;
+    if (isInLastPage || disabled) return;
     paginationCallback(currentPage + 1);
-  }, [isInLastPage, paginationCallback, currentPage]);
+  }, [isInLastPage, disabled, paginationCallback, currentPage]);
   useEffect(function () {
     if (totalOfPages > 7) {
       if (currentPage > 3 && currentPage < totalOfPages - 3) {
