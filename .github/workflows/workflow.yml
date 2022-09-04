@@ -35,7 +35,6 @@ jobs:
           dist-id: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
           invalidation: / *
   
-on:
   push:
     branches:
       - "develop"
