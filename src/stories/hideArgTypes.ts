@@ -84,4 +84,9 @@ export const hideArgs = {
       disable: true,
     },
   },
+  name: {
+    table: {
+      disable: true,
+    },
+  },
 };
