@@ -35,7 +35,6 @@ jobs:
           dist-id: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
           invalidation: / *
   
-name: GitHub Actions Demo
 on:
   push:
     branches:
