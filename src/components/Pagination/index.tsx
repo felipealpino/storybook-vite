@@ -177,14 +177,14 @@ const Pagination: React.FC<IPagination> = ({
 	}, [currentPage, disabled, fisrtPageStartsIn, lastPage, paginationCallback, rounded, status]);
 
 	const handleClickPreviousPage = useCallback(() => {
-		if (isInFirstPage) return;
+		if (isInFirstPage || disabled) return;
 		paginationCallback(currentPage - 1);
-	}, [isInFirstPage, paginationCallback, currentPage]);
+	}, [isInFirstPage, disabled, paginationCallback, currentPage]);
 
 	const handleClickNextPage = useCallback(() => {
-		if (isInLastPage) return;
+		if (isInLastPage || disabled) return;
 		paginationCallback(currentPage + 1);
-	}, [isInLastPage, paginationCallback, currentPage]);
+	}, [isInLastPage, disabled, paginationCallback, currentPage]);
 
 	useEffect(() => {
 		if (totalOfPages > 7) {
