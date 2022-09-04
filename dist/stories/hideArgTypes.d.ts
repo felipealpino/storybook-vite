@@ -84,4 +84,9 @@ export declare const hideArgs: {
             disable: boolean;
         };
     };
+    name: {
+        table: {
+            disable: boolean;
+        };
+    };
 };

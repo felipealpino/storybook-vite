@@ -1,5 +1,5 @@
-import React from "react";
-import { ElementStatus } from "../../shared/theme/colors";
+import React from 'react';
+import { ElementStatus } from '../../shared/theme/colors';
 export interface IPagination {
     totalOfPages: number;
     currentPage: number;

@@ -612,10 +612,18 @@ var Pagination = function Pagination(_ref) {
   var lastPage = fisrtPageStartsIn === 0 ? totalOfPages - 1 : totalOfPages;
   var isInLastPage = currentPage === lastPage;
   var isInFirstPage = currentPage === fisrtPageStartsIn;
+
+  var Dots = function Dots() {
+    return React.createElement("span", {
+      className: "dots",
+      key: v4()
+    }, "...");
+  };
+
   var renderPagesWithDots = useMemo(function () {
     var toRender = [];
 
-    if (showDots === "end") {
+    if (showDots === 'end') {
       var _loop = function _loop(i) {
         toRender.push(React.createElement(BallContainer, {
           status: status,
@@ -624,7 +632,7 @@ var Pagination = function Pagination(_ref) {
           isCurrentPage: i === currentPage,
           key: v4(),
           onClick: function onClick() {
-            return paginationCallback(i);
+            return !disabled && paginationCallback(i);
           }
         }, i));
       };
@@ -633,10 +641,7 @@ var Pagination = function Pagination(_ref) {
         _loop(i);
       }
 
-      toRender.push(React.createElement("span", {
-        className: "dots",
-        key: v4()
-      }, "..."));
+      toRender.push(React.createElement(Dots, null));
       toRender.push(React.createElement(BallContainer, {
         status: status,
         disabled: disabled,
@@ -644,12 +649,12 @@ var Pagination = function Pagination(_ref) {
         isCurrentPage: lastPage === currentPage,
         key: v4(),
         onClick: function onClick() {
-          return paginationCallback(lastPage);
+          return !disabled && paginationCallback(lastPage);
         }
       }, lastPage));
     }
 
-    if (showDots === "start") {
+    if (showDots === 'start') {
       toRender.push(React.createElement(BallContainer, {
         status: status,
         disabled: disabled,
@@ -657,13 +662,10 @@ var Pagination = function Pagination(_ref) {
         isCurrentPage: fisrtPageStartsIn === currentPage,
         key: v4(),
         onClick: function onClick() {
-          return paginationCallback(fisrtPageStartsIn);
+          return !disabled && paginationCallback(fisrtPageStartsIn);
         }
       }, fisrtPageStartsIn));
-      toRender.push(React.createElement("span", {
-        className: "dots",
-        key: v4()
-      }, "..."));
+      toRender.push(React.createElement(Dots, null));
 
       var _loop2 = function _loop2(_i) {
         toRender.push(React.createElement(BallContainer, {
@@ -673,7 +675,7 @@ var Pagination = function Pagination(_ref) {
           isCurrentPage: _i === currentPage,
           key: v4(),
           onClick: function onClick() {
-            return paginationCallback(_i);
+            return !disabled && paginationCallback(_i);
           }
         }, _i));
       };
@@ -683,7 +685,7 @@ var Pagination = function Pagination(_ref) {
       }
     }
 
-    if (showDots === "both") {
+    if (showDots === 'both') {
       toRender.push(React.createElement(BallContainer, {
         status: status,
         disabled: disabled,
@@ -691,13 +693,10 @@ var Pagination = function Pagination(_ref) {
         isCurrentPage: fisrtPageStartsIn === currentPage,
         key: v4(),
         onClick: function onClick() {
-          return paginationCallback(fisrtPageStartsIn);
+          return !disabled && paginationCallback(fisrtPageStartsIn);
         }
       }, fisrtPageStartsIn));
-      toRender.push(React.createElement("span", {
-        className: "dots",
-        key: v4()
-      }, "..."));
+      toRender.push(React.createElement(Dots, null));
 
       var _loop3 = function _loop3(_i2) {
         toRender.push(React.createElement(BallContainer, {
@@ -707,7 +706,7 @@ var Pagination = function Pagination(_ref) {
           isCurrentPage: _i2 === currentPage,
           key: v4(),
           onClick: function onClick() {
-            return paginationCallback(_i2);
+            return !disabled && paginationCallback(_i2);
           }
         }, _i2));
       };
@@ -716,10 +715,7 @@ var Pagination = function Pagination(_ref) {
         _loop3(_i2);
       }
 
-      toRender.push(React.createElement("span", {
-        className: "dots",
-        key: v4()
-      }, "..."));
+      toRender.push(React.createElement(Dots, null));
       toRender.push(React.createElement(BallContainer, {
         status: status,
         disabled: disabled,
@@ -727,7 +723,7 @@ var Pagination = function Pagination(_ref) {
         isCurrentPage: lastPage === currentPage,
         key: v4(),
         onClick: function onClick() {
-          return paginationCallback(lastPage);
+          return !disabled && paginationCallback(lastPage);
         }
       }, lastPage));
     }
@@ -745,7 +741,7 @@ var Pagination = function Pagination(_ref) {
         isCurrentPage: i === currentPage,
         key: v4(),
         onClick: function onClick() {
-          return paginationCallback(i);
+          return !disabled && paginationCallback(i);
         }
       }, i));
     };
@@ -767,16 +763,16 @@ var Pagination = function Pagination(_ref) {
   useEffect(function () {
     if (totalOfPages > 7) {
       if (currentPage > 3 && currentPage < totalOfPages - 3) {
-        setShotDots("both");
+        setShotDots('both');
       } else if (currentPage > 4) {
-        setShotDots("start");
+        setShotDots('start');
       } else if (currentPage < totalOfPages - 3) {
-        setShotDots("end");
+        setShotDots('end');
       }
     }
   }, [currentPage, totalOfPages]);
   return React.createElement(PaginationContainer, {
-    className: "pagination-container " + (className || ""),
+    className: "pagination-container " + (className || ''),
     key: showDots
   }, React.createElement(BallContainer, {
     status: status,
