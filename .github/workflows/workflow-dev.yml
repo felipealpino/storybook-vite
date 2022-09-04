@@ -2,7 +2,7 @@ name: Deploy Storybook Dev
 on:
   push:
     branches:
-      - "main"
+      - "develpop"
   workflow_dispatch:
     inputs:
       logLevel:
